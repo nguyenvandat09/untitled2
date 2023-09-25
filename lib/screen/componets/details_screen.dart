@@ -4,6 +4,7 @@ import 'package:untitled2/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:untitled2/models/Product.dart';
 import 'package:untitled2/screen/componets/color_dot.dart';
+import 'package:untitled2/screen/cart_screen.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({Key? key, required this.product}) : super(key: key);
@@ -436,7 +437,12 @@ class DetailsScreen extends StatelessWidget {
                         width: 300,
                         height: 53,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const CartScreen()),
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                             primary: primaryColor,
                             //shape: const StadiumBorder()

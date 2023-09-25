@@ -14,7 +14,7 @@ class CartScreen extends StatelessWidget{
             child: Column(
               children: [
                 Container(
-                    margin: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.fromLTRB(10, 40, 10, 10),
                     padding: const EdgeInsets.all(10),
                     decoration: const BoxDecoration(
                       color: Color(0xFFFFFFFF),
