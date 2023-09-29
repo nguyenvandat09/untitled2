@@ -1,47 +1,46 @@
 import 'package:flutter/material.dart';
 
 class Product {
-  final String image, title;
-  final int price;
-  final Color bgColor;
-  final double Discount;
-
+   int? id;
+   String? name;
+   String? urlPicture;
+   double? price;
+   double?  priceOld;
+   int? ratting;
+   Color? bgColor;
+   bool? isActive;
   Product({
-    required this.image,
-    required this.title,
-    required this.price,
-    this.bgColor = const Color(0xFFEFEFF2),
-    required this.Discount,
-  });
+       this.id,
+       this.name,
+       this.urlPicture,
+       this.price,
+       this.priceOld,
+       this.ratting,
+      this.bgColor = const Color(0xFFEFEFF2),
+      required  this.isActive});
+   Product.fromJson(Map<String, dynamic> json) {
+
+      id= json['id'] ?? '';
+      name= json['name'] ?? '';
+      price=json['price'] ?? '';
+      priceOld= json['priceOld'] ?? '';
+      urlPicture= json['urlPicture'] ?? '';
+      ratting= json['ratting'] ?? '';
+      isActive= json['isActive'] ?? false;
+
+  }
+   Map<String, dynamic> toJson() {
+     final Map<String, dynamic> data = <String, dynamic>{};
+     data['id'] = id;
+     data['name'] = name;
+     data['price'] = price;
+     data['priceOld'] = priceOld;
+     data['urlPicture'] = urlPicture;
+     data['ratting'] = ratting;
+     data['isActive'] = isActive;
+     return data;
+   }
+
 }
 
-List<Product> demo_product = [
-  Product(
-    image: "assets/product.png",
-    title: "Long Sleeve Shirts",
-    price: 165,
-    bgColor: const Color(0xFFEFEFF2),
-    Discount: 12,
-  ),
-  Product(
-    image: "assets/product.png",
-    title: "Long Sleeve Shirts",
-    price: 99,
-    bgColor: const Color(0xFFEFEFF2),
-    Discount: 12,
-  ),
-  Product(
-    image: "assets/product.png",
-    title: "Long Sleeve ",
-    price: 170,
-    bgColor: const Color(0xFFEFEFF2),
-    Discount: 25,
-  ),
-  Product(
-    image: "assets/product.png",
-    title: "Long Sleeve ",
-    price: 190,
-    bgColor: const Color(0xFFEFEFF2),
-    Discount: 25,
-  ),
-];
+
