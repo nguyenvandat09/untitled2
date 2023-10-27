@@ -17,15 +17,18 @@ class SectionTitle extends StatelessWidget {
         Text(
           title,
           style: Theme.of(context).textTheme.subtitle1!.copyWith(
-            color: Colors.black,
-            fontWeight: FontWeight.w500,
+            color: const Color(0xFF223263),
+            fontWeight: FontWeight.bold,
           ),
         ),
         TextButton(
           onPressed: pressSeeAll,
-          child: const Text(
+          child:  Text(
             "See More",
-            style: TextStyle(color:  Color(0xFF40BFFF)),
+            style: Theme.of(context).textTheme.subtitle1!.copyWith(
+              color: const Color(0xFF40BFFF),
+              fontWeight: FontWeight.bold,
+            ),
           ),
         )
       ],

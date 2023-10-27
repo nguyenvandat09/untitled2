@@ -24,7 +24,7 @@ class OfferScreen extends StatelessWidget {
             ),
           ),
           Container(
-            width: 400,
+            width: 350,
             height: 90,
             alignment: Alignment.center,
             margin: const EdgeInsets.symmetric(vertical: 12),

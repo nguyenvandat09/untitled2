@@ -1,32 +1,24 @@
 class Category {
-  final String icon, title;
+  final int? id;
+  final String? name;
+  final String? iconurl;
 
-  Category({required this.icon, required this.title});
+  Category({
+    this.id,
+    this.name,
+    this.iconurl
+  });
+  Category.fromJson(Map<String, dynamic> json)
+      : id = json['id'] as int?,
+        name = json['nameCategory'] as String?,
+        iconurl = json['picture'] as String?;
+
+
+  Map<String, dynamic> toJson() => {
+    'id' : id,
+    'nameCategory' : name,
+    'picture' : iconurl,
+
+  };
 }
 
-List<Category> demo_categories = [
-  Category(
-    icon: "assets/icon/Group.svg",
-    title: "Man Shirt",
-  ),
-  Category(
-    icon: "assets/icon/G2.svg",
-    title: "Man Shirt",
-  ),
-  Category(
-    icon: "assets/icon/Group2.svg",
-    title: "Man Shirt ",
-  ),
-  Category(
-    icon: "assets/icon/Group2.svg",
-    title: "Man Pants",
-  ),
-  Category(
-    icon: "assets/icon/Group.svg",
-    title: "Man Shirt",
-  ),
-  Category(
-    icon: "assets/Group2.svg",
-    title: "Man Shirt",
-  ),
-];

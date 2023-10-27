@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io';
+
 const List<String> list = <String>['United States', 'United Kingdom', 'Afghanistan', 'Albania', 'American Samoa',];
 class AddressScreen extends StatefulWidget {
   const AddressScreen({super.key});
@@ -9,13 +8,8 @@ class AddressScreen extends StatefulWidget {
 
   @override
   _AddressScreenState createState() => _AddressScreenState();
-  
 }
-
 class _AddressScreenState extends State<AddressScreen> {
-  ImagePicker picker = ImagePicker();
-  XFile? image;
-
 
   @override
   Widget build(BuildContext context) {
@@ -46,87 +40,19 @@ class _AddressScreenState extends State<AddressScreen> {
     physics: const BouncingScrollPhysics(
     parent: AlwaysScrollableScrollPhysics()),
       child:Column(
-        //mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 10),
-             child: const DropdownMenuExample(),
-          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                margin: const EdgeInsets.fromLTRB(16,20,16,10),
+                child: const DropdownMenuExample(),
+              ),
 
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 5),
-          ),
 
-          Container(
-            key: email,
-            alignment: Alignment.center,
-            height: 70,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            margin: const EdgeInsets.symmetric(horizontal: 16 ,vertical: 10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.0),
-              border: Border.all(
-                width: 1.0,
-                color: const Color(0xFFEFEFEF),
-              ),
-            ),
-            child: TextFormField(
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              validator: (text) {
-                if (text == null || text.isEmpty) {
-                  return 'Can\'t be empty';
-                }
-                if (text.length < 4) {
-                  return 'Too short';
-                }
-                return null;
-              },
-              style: GoogleFonts.inter(
-                fontSize: 16.0,
-                color: const Color(0xFF15224F),
-              ),
-              maxLines: 1,
-              cursorColor: const Color(0xFF15224F),
-              decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.person_outline),
-                  labelText: 'Fist Name',
-                  labelStyle: GoogleFonts.inter(
-                    fontSize: 12.0,
-                    color: const Color(0xFF969AA8),
-                  ),
-                  border: InputBorder.none),
-            ),
-          ),//
-          Container(
-            alignment: Alignment.center,
-            height: 70,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            margin: const EdgeInsets.symmetric(horizontal: 16 ,vertical: 10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.0),
-              border: Border.all(
-                width: 1.0,
-                color: const Color(0xFFEFEFEF),
-              ),
-            ),
-            child: TextField(
+          ],),
 
-              style: GoogleFonts.inter(
-                fontSize: 16.0,
-                color: const Color(0xFF15224F),
-              ),
-              maxLines: 1,
-              cursorColor: const Color(0xFF15224F),
-              decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.person_outline),
-                  labelText: 'Last Name',
-                  labelStyle: GoogleFonts.inter(
-                    fontSize: 12.0,
-                    color: const Color(0xFF969AA8),
-                  ),
-                  border: InputBorder.none),
-            ),
-          ),//
           Container(
             alignment: Alignment.center,
             height: 70,

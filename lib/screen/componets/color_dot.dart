@@ -20,7 +20,7 @@ class ColorDot extends StatelessWidget {
         shape: BoxShape.circle,
       ),
       child: CircleAvatar(
-        radius: 30,
+        radius: 28,
 
         backgroundColor: color,
       ),

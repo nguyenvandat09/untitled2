@@ -1,28 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io';
-const List<String> list = <String>['Male', 'Female', 'Other', ];
+import 'package:untitled2/main.dart';
 
-class ChangePhoneScreen extends StatefulWidget {
-  const ChangePhoneScreen({super.key});
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
-
-  @override
-  _AddressScreenState createState() => _AddressScreenState();
-
-}
-
-class _AddressScreenState extends State<ChangePhoneScreen> {
-  ImagePicker picker = ImagePicker();
-  XFile? image;
-
+class ChangeMailScreen extends StatelessWidget {
+  const ChangeMailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-
-    final email = GlobalKey<FormState>();
-    return Scaffold(
+    return  Scaffold(
       appBar: AppBar(
         shadowColor: const Color(0xFFFFFFFF),
 
@@ -35,7 +23,7 @@ class _AddressScreenState extends State<ChangePhoneScreen> {
             size: 30,
           ),
         ),
-        title: const Text("Phone Number",
+        title: const Text("Email",
           style: TextStyle(
             color:  Color(0xFF223263),
             fontSize: 20,
@@ -43,7 +31,56 @@ class _AddressScreenState extends State<ChangePhoneScreen> {
         ),
         backgroundColor: const Color(0xFFFFFFFF),
       ),
-      body:  Column(
+      body: const ChangeMailScreenState(),
+    );
+  }
+}
+class ChangeMailScreenState extends StatefulWidget {
+  const ChangeMailScreenState({super.key});
+  @override
+  ChangeMailState createState() => ChangeMailState();
+
+}
+
+class ChangeMailState extends State<ChangeMailScreenState> {
+  final _formKey = GlobalKey<FormState>();
+  final emailController = TextEditingController(text: email_);
+  int code = 0;
+  Future userUpdateName() async {
+    // Getting value from Controller
+    String emailc = emailController.text;
+    // Starting Web API Call.
+    if(emailc.isNotEmpty){
+      var response = await http.put(
+          Uri.parse('http://localhost:3000/api/user/$id_'),
+          body: json.encode({
+            'avatarUser':avatarUser_,
+            'username' : username_,
+            'password' : pass_,
+            'name': name_,
+            'email': emailc.toString(),
+            'phone': phone_,
+            'gender': gender_,
+            'address': address_,
+          }),
+
+          headers: {'Content-Type': 'application/json'});
+      // print('Message: ${jsonDecode(response.body)["message"]}');
+      // print('Code: ${jsonDecode(response.body)["code"]}');
+      // Getting Server response into variable.
+      var message = jsonDecode(response.body);
+      print(message);
+
+
+    }
+
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+        key: _formKey,
+        child:
+        Column(
         //mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
@@ -51,7 +88,7 @@ class _AddressScreenState extends State<ChangePhoneScreen> {
           ),
 
           Container(
-            key: email,
+            key: _formKey,
             alignment: Alignment.center,
             height: 70,
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -81,15 +118,22 @@ class _AddressScreenState extends State<ChangePhoneScreen> {
               maxLines: 1,
               cursorColor: const Color(0xFF15224F),
               decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.phone_android_outlined),
-                  labelText: 'Phone number',
+                  prefixIcon: const Icon(Icons.mail_outline_outlined),
+                  labelText: 'Email',
                   labelStyle: GoogleFonts.inter(
                     fontSize: 12.0,
                     color: const Color(0xFF969AA8),
                   ),
                   border: InputBorder.none),
             ),
-          ),// email
+          ),//
+          // email
+          const Text("We Will Send verification to your New Email",
+            style: TextStyle(
+              color:  Color(0xFF40BFFF),
+              fontSize: 15,
+            ),
+          ),
 
           Container(
             alignment: Alignment.center,
@@ -114,7 +158,7 @@ class _AddressScreenState extends State<ChangePhoneScreen> {
                 backgroundColor: MaterialStateProperty.all(const Color(0xFF40BFFF)),
               ),
               onPressed: (){
-                if (email.currentState!.validate()) {
+                if (_formKey.currentState!.validate()) {
                   // If the form is valid, display a snackbar. In the real world,
                   // you'd often call a server or save the information in a database.
 
@@ -141,30 +185,4 @@ class _AddressScreenState extends State<ChangePhoneScreen> {
     );
   }
 }
-class DropdownMenuExample extends StatefulWidget {
-  const DropdownMenuExample({super.key});
 
-  @override
-  State<DropdownMenuExample> createState() => _DropdownMenuExampleState();
-}
-
-class _DropdownMenuExampleState extends State<DropdownMenuExample> {
-  String dropdownValue = list.first;
-
-  @override
-  Widget build(BuildContext context) {
-    return DropdownMenu<String>(
-
-      initialSelection: list.first,
-      onSelected: (String? value) {
-        // This is called when the user selects an item.
-        setState(() {
-          dropdownValue = value!;
-        });
-      },
-      dropdownMenuEntries: list.map<DropdownMenuEntry<String>>((String value) {
-        return DropdownMenuEntry<String>(value: value, label: value);
-      }).toList(),
-    );
-  }
-}

@@ -1,48 +1,111 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:like_button/like_button.dart';
+import 'package:provider/provider.dart';
 import 'package:untitled2/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:untitled2/main.dart';
 import 'package:untitled2/models/Product.dart';
+import 'package:untitled2/models/base_response.dart';
+import 'package:untitled2/models/reviews.dart';
+import 'package:untitled2/provider/cart_provider.dart';
 import 'package:untitled2/screen/componets/color_dot.dart';
 import 'package:untitled2/screen/cart_screen.dart';
+import 'package:five_pointed_star/five_pointed_star.dart';
+import 'package:untitled2/screen/list/list_review_screen.dart';
 
-class DetailsScreen extends StatelessWidget {
-  const DetailsScreen({Key? key, required this.product}) : super(key: key);
+import 'dart:convert';
+import 'dart:async';
+import 'package:http/http.dart' as http;
 
+class DetailsScreen extends StatefulWidget {
+  const DetailsScreen({super.key, required this.product, required this.statusFavorite});
   final Product product;
+  final bool statusFavorite;
+
+  @override
+  State<DetailsScreen> createState() => _ProductGridItemState();
+}
+int idProduct_=0;
+class _ProductGridItemState extends State<DetailsScreen> {
+
+  int reviewCount=0;
+  double rattingAverage=0;
+  Future fetchAlbum() async {
+
+    final response = await http.get(
+      Uri.parse('http://localhost:3000/api/reviews/getListReviewsByProduct/${widget.product.id}'),
+      headers: {"Content-Type": "application/json; charset=utf-8"},
+    );
+    var baseResponse = BaseResponse.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+
+    List<Review> review = (baseResponse.data as List?)
+        ?.map((dynamic e) => Review.fromJson(e as Map<String, dynamic>))
+        .toList() ?? [];
+
+    if(review.isNotEmpty) {
+      reviewCount = review.length;
+
+      for (int i = 0; i < review.length; i++) {
+        rattingAverage += review[i].ratting!;
+      }
+      rattingAverage /= review.length;
+
+      var response2 = await http.put(
+          Uri.parse('http://localhost:3000/api/product/${widget.product.id}'),
+          body: json.encode({
+            "idCategory": widget.product.idCategory,
+            "name": widget.product.name,
+            "price": widget.product.price,
+            "priceOld": widget.product.priceOld,
+            "urlPicture": widget.product.urlPicture,
+            "ratting": rattingAverage.toInt(),
+            "isActive": widget.product.isActive
+          }),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+      );
+      jsonDecode(response2.body);
+    }
+
+  }
+  Future<bool> onLikeButtonTapped(bool isLiked) async{
+    if (!isLiked) {
+         print('new');
+          var responseOrderItem = await http.post(
+              Uri.parse(
+                  'http://localhost:3000/api/favorite'),
+              body: json.encode({
+                'idProduct': widget.product.id,
+                'idUser': id_,
+              }),
+              headers: {
+                'Content-Type':
+                    'application/json'
+              });
+         jsonDecode(responseOrderItem.body);
+    }else{
+      print('update');
+    }
+    return !isLiked;
+  }
 
   @override
   Widget build(BuildContext context) {
+    bool statusF = widget.statusFavorite;
+    fetchAlbum();
     return Scaffold(
-      backgroundColor: product.bgColor,
+      // backgroundColor: product.bgColor,
       appBar: AppBar(
         backgroundColor:  Colors.white,
         leading: const BackButton(color: Color(0xFF40BFFF)),
-        actions: [
-          Row(
-            children: [
-              IconButton(
-                onPressed: () {},
-                color: const Color(0xFF40BFFF),
-                icon: const Icon(Icons.search_outlined,size: 25,),
-              ),
-              IconButton(
-                onPressed: () {},
-                color: const Color(0xFF40BFFF),
-                icon: const Icon(Icons.settings,size: 25,),
-              )
-            ],
-          ),
 
-        ],
       ),
       body:  SingleChildScrollView(
-        physics:const BouncingScrollPhysics(
-            parent: AlwaysScrollableScrollPhysics()),
         child: Column(
           children: [
-            Image.asset(
-              product.image,
+            Image.network(
+              widget.product.urlPicture.toString(),
               height: MediaQuery.of(context).size.height * 0.4,
               fit: BoxFit.cover,
             ),
@@ -66,55 +129,55 @@ class DetailsScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            product.title,
+                            widget.product.name.toString(),
+
                             style: Theme.of(context).textTheme.headline6,
                           ),
                         ),
                         const SizedBox(width: defaultPadding),
-                        Image.asset(
-                          "assets/Traitim.png",
-                          width: 25.0,
-                          height: 25.0,
+                        LikeButton(
+                          size: 25,
+                          circleColor:
+                          const CircleColor(start: Color(0xffff0000), end: Color(
+                              0xffff3434)),
+                          bubblesColor: const BubblesColor(
+                            dotPrimaryColor: Color(0xffe70000),
+                            dotSecondaryColor: Color(0xffe70000),
+                          ),
+                          likeBuilder: ( liked ) {
+                            if(statusF == false){
+                              statusF = liked;
+                              if(statusF == true){
+                                statusF = true;
+                              }
+                            }
+
+                            // if(isLiked){
+                            // }
+                            return Icon(
+                              Icons.favorite_outlined,
+                              color:statusF  ? Colors.red : Colors.grey,
+                              size: 25,
+                            );
+                          },
+                          onTap: onLikeButtonTapped,
                         ),
                       ],
                     ),
                     Container(
                       margin: const EdgeInsets.all(5),
                     ),
-                    Row(
-                      children: [
-                        Image.asset(
-                          "assets/star.png",
-                          width: 25.0,
-                          height: 25.0,
-                        ),
-                        Image.asset(
-                          "assets/star.png",
-                          width: 25.0,
-                          height: 25.0,
-                        ),
-                        Image.asset(
-                          "assets/star.png",
-                          width: 25.0,
-                          height: 25.0,
-                        ),
-                        Image.asset(
-                          "assets/star.png",
-                          width: 25.0,
-                          height: 25.0,
-                        ),
+                    FivePointedStar(
+                      defaultSelectedCount: widget.product.ratting as int,
+                      count: 5,
+                      selectedColor:const Color(0xFFFFEB00) ,
+                      size: const Size(20,20),
 
-                        Image.asset(
-                          "assets/star.png",
-                          width: 25.0,
-                          height: 25.0,
-                        ),
-                      ],
                     ),
                     Container(
                       margin: const EdgeInsets.symmetric(vertical: 5),
                       child: Text(
-                        "\$" + product.price.toString(),
+                        "\$${widget.product.price}",
                         style: GoogleFonts.inter(
                           fontSize: 23.0,
                           color: const Color(0xFF40BFFF),
@@ -131,6 +194,10 @@ class DetailsScreen extends StatelessWidget {
                       children:  [
                         Container(
                           padding: const EdgeInsets.all(defaultPadding / 4),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: primaryColor),
+                            shape: BoxShape.circle,
+                          ),
                           child: const CircleAvatar(
                             radius: 30,
                             backgroundColor: Colors.white,
@@ -207,8 +274,8 @@ class DetailsScreen extends StatelessWidget {
                       style: Theme.of(context).textTheme.subtitle2,
                     ),
                     const SizedBox(height: defaultPadding / 2),
-                    Row(
-                      children: const [
+                    const Row(
+                      children: [
                         ColorDot(
                           color: Color(0xFFBEE8EA),
                           isActive: true,
@@ -258,7 +325,8 @@ class DetailsScreen extends StatelessWidget {
                               margin: const EdgeInsets.symmetric(horizontal: 55),
                             ),
                             Text(
-                              "Laser \nBlue/Anthracite/Watermelon\n/White" ,
+                              "Laser Blue/Anthracite" ,
+                              overflow: TextOverflow.clip,
                               style: GoogleFonts.inter(
                                 fontSize: 13.0,
                                 color: const Color(0xFF9098B1),
@@ -266,6 +334,9 @@ class DetailsScreen extends StatelessWidget {
                             ),
 
                           ],
+                        ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(vertical: 5),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -293,7 +364,7 @@ class DetailsScreen extends StatelessWidget {
                           margin: const EdgeInsets.symmetric(vertical: 7),
                         ),
                         Text(
-                          "The Nike Air Max 270 React ENG combines\n a full-length React foam midsole with a 270 Max Air \nunit for unrivaled comfort and a striking\n visual experience." ,
+                          "The Nike Air Max 270 React ENG combines a full-length React foam midsole with a 270 Max Air unit for unrivaled comfort and a striking visual experience." ,
                           style: GoogleFonts.inter(
                             fontSize: 15.0,
                             color: const Color(0xFF9098B1),
@@ -302,155 +373,85 @@ class DetailsScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: defaultPadding * 2),
-                    Text(
-                      "Review Product",
-                      style: Theme.of(context).textTheme.subtitle2,
-                    ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Image.asset(
-                          "assets/star.png",
-                          width: 25.0,
-                          height: 25.0,
-                        ),
-                        Image.asset(
-                          "assets/star.png",
-                          width: 25.0,
-                          height: 25.0,
-                        ),
-                        Image.asset(
-                          "assets/star.png",
-                          width: 25.0,
-                          height: 25.0,
-                        ),
-                        Image.asset(
-                          "assets/star.png",
-                          width: 25.0,
-                          height: 25.0,
-                        ),
-
-                        Image.asset(
-                          "assets/star05.png",
-                          width: 25.0,
-                          height: 25.0,
-                        ),
                         Text(
-                          "4.5" ,
-                          style: GoogleFonts.inter(
-                            fontSize: 10.0,
-                            color: const Color(0xFF9098B1),
-                          ),
+                          "Review Product",
+                          style: Theme.of(context).textTheme.subtitle2,
                         ),
-                        Text(
-                          "(5 Review)" ,
-                          style: GoogleFonts.inter(
-                            fontSize: 10.0,
-                            color: const Color(0xFF9098B1),
+                        TextButton(
+                          onPressed: (){
+                            idProduct_ = widget.product.id!;
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ListReviewScreen(),
+                              ),
+                            );
+                          },
+                          child: const Text(
+                            "See More",
+                            style: TextStyle(color:  Color(0xFF40BFFF)),
                           ),
-                        ),
+                        )
                       ],
                     ),
 
-                    const SizedBox(height: defaultPadding * 2),
                     Row(
                       children: [
-                        Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 16 ,vertical: 16),
-                          child:Image.asset(
-                            "assets/profile.png",
-                            width: 100.0,
-                            height: 100.0,
-                          ),
-                        ),
-                        Column(
-                          children:  [
-                            const Text(
-                              "James Lawson",
-                              style: TextStyle(fontSize: 15),
-                            ),
-                            Row(
-                              children: [
-                                Image.asset(
-                                  "assets/star.png",
-                                  width: 25.0,
-                                  height: 25.0,
-                                ),
-                                Image.asset(
-                                  "assets/star.png",
-                                  width: 25.0,
-                                  height: 25.0,
-                                ),
-                                Image.asset(
-                                  "assets/star.png",
-                                  width: 25.0,
-                                  height: 25.0,
-                                ),
-                                Image.asset(
-                                  "assets/star.png",
-                                  width: 25.0,
-                                  height: 25.0,
-                                ),
+                        FivePointedStar(
+                          defaultSelectedCount: widget.product.ratting as int,
+                          count: 5,
+                          selectedColor:const Color(0xFFFFEB00),
+                          size: const Size(15,15),
 
-                                Image.asset(
-                                  "assets/star.png",
-                                  width: 25.0,
-                                  height: 25.0,
-                                ),
-                              ],
-                            ),
-
-                          ],
                         ),
 
+                        // Text(
+                        //   " ${widget.product.ratting} " ,
+                        //   style: GoogleFonts.inter(
+                        //     fontSize: 10.0,
+                        //     color: const Color(0xFF9098B1),
+                        //   ),
+                        // ),
+                        // Text(
+                        //   "($reviewCount Review)" ,
+                        //   style: GoogleFonts.inter(
+                        //     fontSize: 10.0,
+                        //     color: const Color(0xFF9098B1),
+                        //   ),
+                        // ),
                       ],
                     ),
-                    const SizedBox(height: defaultPadding * 2),
-                    Text(
-                      "air max are always very comfortable fit, clean and just perfect in every way. just the box was too small and scrunched the sneakers up a little bit, not sure if the box was always this small but the 90s are and will always be one of my favorites." ,
-                      style: GoogleFonts.inter(
-                        fontSize: 13.0,
-                        color: const Color(0xFF9098B1),
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Image.asset(
-                          "assets/product03.png",
-                          width: 50.0,
-                          height: 50.0,
-                        ),
-                        Image.asset(
-                          "assets/product.png",
-                          width: 50.0,
-                          height: 50.0,
-                        ),
 
-                        Image.asset(
-                          "assets/product03.png",
-                          width: 50.0,
-                          height: 50.0,
-                        ),
-                      ],
-                    ),
-                    Center(
+                    const SizedBox(height: defaultPadding ),
+
+
+                    Container(
+                      margin:const EdgeInsets.fromLTRB(0, 20, 0, 10),
                       child: SizedBox(
-                        width: 300,
+                        width: MediaQuery.of(context).size.width,
                         height: 53,
                         child: ElevatedButton(
                           onPressed: () {
+                            Provider.of<CartProvider>(context, listen: false)
+                                .addToCart(widget.product, 1, "");
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const CartScreen()),
+                              MaterialPageRoute(
+                                builder: (context) => CartScreen( product:widget.product,),
+                              ),
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            primary: primaryColor,
+                            backgroundColor: primaryColor,
                             //shape: const StadiumBorder()
                           ),
                           child: const Text("Add to Cart"),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

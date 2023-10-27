@@ -1,46 +1,42 @@
-import 'package:flutter/material.dart';
-
 class Product {
-   int? id;
-   String? name;
-   String? urlPicture;
-   double? price;
-   double?  priceOld;
-   int? ratting;
-   Color? bgColor;
-   bool? isActive;
+  final int? id;
+  final int? idCategory;
+  final String? name;
+  final double? price;
+  final double? priceOld;
+  final String? urlPicture;
+  final int? ratting;
+  final bool? isActive;
+
   Product({
-       this.id,
-       this.name,
-       this.urlPicture,
-       this.price,
-       this.priceOld,
-       this.ratting,
-      this.bgColor = const Color(0xFFEFEFF2),
-      required  this.isActive});
-   Product.fromJson(Map<String, dynamic> json) {
+    this.id,
+    this.idCategory,
+    this.name,
+    this.price,
+    this.priceOld,
+    this.urlPicture,
+    this.ratting,
+    this.isActive,
+  });
 
-      id= json['id'] ?? '';
-      name= json['name'] ?? '';
-      price=json['price'] ?? '';
-      priceOld= json['priceOld'] ?? '';
-      urlPicture= json['urlPicture'] ?? '';
-      ratting= json['ratting'] ?? '';
-      isActive= json['isActive'] ?? false;
+  Product.fromJson(Map<String, dynamic> json)
+      : id = json['id'] as int?,
+        idCategory = json['idCategory'] as int?,
+        name = json['name'] as String?,
+        price = json['price'] as double?,
+        priceOld = json['priceOld'] as double?,
+        urlPicture = json['urlPicture'] as String?,
+        ratting = json['ratting'] as int?,
+        isActive = json['isActive'] as bool?;
 
-  }
-   Map<String, dynamic> toJson() {
-     final Map<String, dynamic> data = <String, dynamic>{};
-     data['id'] = id;
-     data['name'] = name;
-     data['price'] = price;
-     data['priceOld'] = priceOld;
-     data['urlPicture'] = urlPicture;
-     data['ratting'] = ratting;
-     data['isActive'] = isActive;
-     return data;
-   }
-
+  Map<String, dynamic> toJson() => {
+    'id' : id,
+    'idCategory' : idCategory,
+    'name' : name,
+    'price' : price,
+    'priceOld' : priceOld,
+    'urlPicture' : urlPicture,
+    'ratting' : ratting,
+    'isActive' : isActive
+  };
 }
-
-

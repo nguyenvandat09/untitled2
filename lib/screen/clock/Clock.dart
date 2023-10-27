@@ -62,6 +62,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Center(
         child: Text(
+          textAlign: TextAlign.left,
           '$time \n ',
           style: TextStyle(fontSize: getFontSize(context), color: Colors.white),
         ),

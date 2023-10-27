@@ -1,10 +1,14 @@
-import 'package:untitled2/screen/megasale.dart';
+import 'package:untitled2/screen/componets/search_product.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:untitled2/screen/flashsale.dart';
+import 'package:untitled2/screen/list/list_favorite_screen.dart';
+
+import 'package:untitled2/screen/listProduct/flashsale.dart';
+import 'package:untitled2/screen/listProduct/list_product_gird.dart';
+import 'package:untitled2/screen/listProduct/megasale.dart';
 import 'category.dart';
 import 'package:untitled2/screen/clock/Clock.dart';
-import 'package:untitled2/screen/Notification_screen.dart';
+import 'package:untitled2/screen/notification_screen.dart';
 
 const OutlineInputBorder outlineInputBorder = OutlineInputBorder(
   borderRadius: BorderRadius.all(Radius.circular(12)),
@@ -21,26 +25,30 @@ class HomeMain extends StatelessWidget {
         physics: const BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics()),
         child: Container(
-          margin: const EdgeInsets.fromLTRB(0, 35, 0, 0),
+          color: Colors.white,
+          margin: const EdgeInsets.fromLTRB(0, 30, 0, 0),
           child: Column(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
-                    flex: 2,
+                    flex: 1,
                     child: Container(
                       alignment: Alignment.center,
-                      height: 50,
-                      margin: const EdgeInsets.fromLTRB(16, 15, 14, 5),
+                      height: 45,
+                      margin: const EdgeInsets.fromLTRB(16, 15, 14, 0),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.0),
+                        borderRadius: BorderRadius.circular(5.0),
                         border: Border.all(
                           width: 1.0,
                           color: const Color(0xFFEFEFEF),
                         ),
                       ),
                       child: TextField(
+                        onTap: (){
+                          showSearch(context: context, delegate: CustomSearchDelegate());
+                        },
                         style: GoogleFonts.inter(
                           fontSize: 16.0,
                           color: const Color(0xFF40BFFF),
@@ -55,7 +63,7 @@ class HomeMain extends StatelessWidget {
                             ),
                             hintText: 'Search Product',
                             labelStyle: GoogleFonts.inter(
-                              fontSize: 12.0,
+                              fontSize: 10.0,
                               color: const Color(0xFF969AA8),
                             ),
                             border: InputBorder.none),
@@ -64,9 +72,14 @@ class HomeMain extends StatelessWidget {
                   ),
 
                   IconButton(
-                   icon:Image.asset("assets/Traitim.png") ,
-                    iconSize: 50,
+                   icon:const Icon(Icons.favorite_outline),
+                    color: const Color(0xFF9098B1),
+                    iconSize: 28,
                     onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const ListFavoriteScreen()),
+                      );
                     },
                   ),
                   Stack(
@@ -74,8 +87,9 @@ class HomeMain extends StatelessWidget {
                       Container(
                         alignment: Alignment.center,
                         child: IconButton(
-                          icon:Image.asset("assets/Nocation.png") ,
-                          iconSize: 45,
+                          icon:const Icon(Icons.notifications_outlined),
+                          iconSize: 28,
+                          color: const Color(0xFF9098B1),
                           onPressed: () {
                             Navigator.push(
                               context,
@@ -84,17 +98,15 @@ class HomeMain extends StatelessWidget {
                           },
                         ),
                       ),
-
                        Container(
                             alignment: Alignment.centerRight,
-                            margin: const EdgeInsets.fromLTRB(32, 14, 0, 0),
+                            margin: const EdgeInsets.fromLTRB(27, 10, 0, 0),
                             child: const CircleAvatar(
                               backgroundColor: Color(0xFFFB7181),
                               radius: 5.5,
+
                             )
                         )
-
-
                     ],
                   ),
 
@@ -118,26 +130,28 @@ class HomeMain extends StatelessWidget {
                   Container(
                     alignment: Alignment.centerLeft,
                     margin: const EdgeInsets.symmetric(vertical: 50,horizontal: 50),
-                    child: Column(children:  const [
-                      Text(
+                    child:  Column(children:  [
+                       const Text(
+                        textAlign: TextAlign.left,
                         'Super Flash Sale\n50% OFF',
                         style: TextStyle(color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 28.0),
+                            fontSize: 29.0),
                       ),
-                      HomePage(),
+                      Container(margin:const EdgeInsets.all(5),),
+                      const HomePage(),
                     ],),
                   ),
                 ],
               ),
 
               Container(
-                margin: const EdgeInsets.fromLTRB(17, 10, 17, 10),
+                margin: const EdgeInsets.fromLTRB(17, 0, 17, 0),
                 child: const Categories(),
               ),
               Container(
                 margin: const EdgeInsets.fromLTRB(17, 0, 17, 10),
-                child:  const PopularProducts(),
+                child:  const FlashSaleProducts(),
               ),
               Container(
                 margin: const EdgeInsets.fromLTRB(17, 0, 17, 10),
@@ -159,7 +173,7 @@ class HomeMain extends StatelessWidget {
                   Container(
                     alignment: Alignment.centerLeft,
                     margin: const EdgeInsets.symmetric(vertical: 50,horizontal: 50),
-                    child: Column(children: const [
+                    child: const Column(children: [
                       Text(
                         '90% Off Super Mega Sale',
                         style: TextStyle(color: Colors.white,
@@ -177,6 +191,11 @@ class HomeMain extends StatelessWidget {
                   ),
                 ],
               ),
+              Container(
+                margin: const EdgeInsets.fromLTRB(17, 0, 17, 10),
+                child:  const ListGirdProducts(),
+              ),
+
             ],
           ),
         ),
