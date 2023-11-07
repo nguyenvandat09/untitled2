@@ -83,8 +83,6 @@ class _ProductGridItemState extends State<DetailsScreen> {
                     'application/json'
               });
          jsonDecode(responseOrderItem.body);
-    }else{
-
     }
     return !isLiked;
   }
@@ -130,7 +128,10 @@ class _ProductGridItemState extends State<DetailsScreen> {
                           child: Text(
                             widget.product.name.toString(),
 
-                            style: Theme.of(context).textTheme.headline6,
+                            style: GoogleFonts.inter(
+                              fontSize: 15.0,
+                              color: const Color(0xFF223263),
+                            ),
                           ),
                         ),
                         const SizedBox(width: defaultPadding),
@@ -146,9 +147,7 @@ class _ProductGridItemState extends State<DetailsScreen> {
                           likeBuilder: ( liked ) {
                             if(statusF == false){
                               statusF = liked;
-                              if(statusF == true){
-                                statusF = true;
-                              }
+
                             }
                             // if(isLiked){
                             // }
@@ -184,7 +183,10 @@ class _ProductGridItemState extends State<DetailsScreen> {
                     const SizedBox(height: defaultPadding / 2),
                     Text(
                       "Select Size",
-                      style: Theme.of(context).textTheme.subtitle2,
+                      style: GoogleFonts.inter(
+                        fontSize: 15.0,
+                        color: const Color(0xFF223263),
+                      ),
                     ),
                     const SizedBox(height: defaultPadding / 2),
                     Row(
@@ -268,7 +270,10 @@ class _ProductGridItemState extends State<DetailsScreen> {
                     ),
                     Text(
                       "Select Colors",
-                      style: Theme.of(context).textTheme.subtitle2,
+                      style: GoogleFonts.inter(
+                        fontSize: 15.0,
+                        color: const Color(0xFF223263),
+                      ),
                     ),
                     const SizedBox(height: defaultPadding / 2),
                     const Row(
@@ -297,15 +302,10 @@ class _ProductGridItemState extends State<DetailsScreen> {
                       ],
                     ),
                     Container(
-                      margin: const EdgeInsets.all(5),
+                      margin: const EdgeInsets.all(10),
                     ),
-                    Text(
-                      "Specification",
-                      style: Theme.of(context).textTheme.subtitle2,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.all(5),
-                    ),
+
+
                     Column(
                       children: [
                         Row(
@@ -375,7 +375,10 @@ class _ProductGridItemState extends State<DetailsScreen> {
                       children: [
                         Text(
                           "Review Product",
-                          style: Theme.of(context).textTheme.subtitle2,
+                          style: GoogleFonts.inter(
+                            fontSize: 15.0,
+                            color: const Color(0xFF223263),
+                          ),
                         ),
                         TextButton(
                           onPressed: (){
@@ -402,16 +405,15 @@ class _ProductGridItemState extends State<DetailsScreen> {
                           count: 5,
                           selectedColor:const Color(0xFFFFEB00),
                           size: const Size(15,15),
-
                         ),
 
-                        // Text(
-                        //   " ${widget.product.ratting} " ,
-                        //   style: GoogleFonts.inter(
-                        //     fontSize: 10.0,
-                        //     color: const Color(0xFF9098B1),
-                        //   ),
-                        // ),
+                        Text(
+                          " ${widget.product.ratting}" ,
+                          style: GoogleFonts.inter(
+                            fontSize: 10.0,
+                            color: const Color(0xFF9098B1),
+                          ),
+                        ),
                         // Text(
                         //   "($reviewCount Review)" ,
                         //   style: GoogleFonts.inter(
@@ -423,8 +425,6 @@ class _ProductGridItemState extends State<DetailsScreen> {
                     ),
 
                     const SizedBox(height: defaultPadding ),
-
-
                     Container(
                       margin:const EdgeInsets.fromLTRB(0, 20, 0, 10),
                       child: SizedBox(
@@ -446,7 +446,7 @@ class _ProductGridItemState extends State<DetailsScreen> {
 
                           style: ElevatedButton.styleFrom(
                             backgroundColor: primaryColor,
-                            //shape: const StadiumBorder()
+                            shape: const StadiumBorder()
                           ),
                           child: const Text("Add to Cart"),
                         ),

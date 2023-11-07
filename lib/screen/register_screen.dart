@@ -108,17 +108,16 @@ final registeraddress= TextEditingController();
 class MyCustomFormState extends State<FormRegister> {
   final _formKey = GlobalKey<FormState>();
   Future userRegister() async{
-    // Getting value from Controller
+
     String name = registername.text;
     String username = registerusername.text;
     String password = registerpassword.text;
     String email = registeremail.text;
     String phone = registerphone.text;
     String address = registeraddress.text;
-    //print(data);
-    // Starting Web API Call.
+
     var response = await http.post(
-        Uri.parse('http://localhost:8080/api/user'),
+        Uri.parse('http://localhost:3000/api/user'),
         body: json.encode({
           "avatarUser": "https://cdn-icons-png.flaticon.com/512/5556/5556468.png",
           'username' : username,
@@ -138,7 +137,7 @@ class MyCustomFormState extends State<FormRegister> {
   }
   @override
   Widget build(BuildContext context) {
-    // Build a Form widget using the _formKey created above.
+
     return Form(
       key: _formKey,
       child: Column(

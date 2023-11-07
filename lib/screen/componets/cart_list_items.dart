@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled2/models/cart_item.dart';
 import '../../../provider/cart_provider.dart';
@@ -52,10 +53,11 @@ class _CartListItemState extends State<CartListItem> {
           ),
           Expanded(
             child: SizedBox(
-              width: 100,
+              width: 110,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Container(margin: const EdgeInsets.only(top: 10),),
                   Text(
                     widget.cartItem.product.name!,
                     maxLines: 2,
@@ -70,7 +72,10 @@ class _CartListItemState extends State<CartListItem> {
                     children: [
                       Text(
                         "\$${widget.cartItem.product.price.toString()}",
-                        style: Theme.of(context).textTheme.titleLarge,
+                        style: GoogleFonts.inter(
+                          fontSize: 16.0,
+                          color: const Color(0xFF40BFFF),
+                        ),
                       ),
                       Expanded(child: Container()),
                       Row(
