@@ -22,53 +22,22 @@ class CartScreen extends StatefulWidget {
 late double price_;
 late  int idProduct;
 Future addOrder() async{
-  var timeNowFormated=DateFormat('yyyy-MM-ddTHH:mm:ss.000+00:00').format(DateTime.now()) ;
 
-  var response = await http.post(
-      Uri.parse('http://localhost:3000/api/orders'),
-      body: json.encode(
-        {'idUser': id_, 'status' : "Shipping", 'price': price_, 'createAt':timeNowFormated,}
-      ),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-  );
-  var signInRes = SignInRes.fromJson(jsonDecode(response.body));
-  var orders = Orders.fromJson(signInRes.data!);
-  int idOrder=orders.idOrder;
-
-  var responseOrderItem = await http.post(
-      Uri.parse('http://localhost:3000/api/orders_item'),
-      body: json.encode(
-          {'idOrders': idOrder, 'quantity': 1, 'idProduct':idProduct,}
-      ),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-  );
-  jsonDecode(responseOrderItem.body);
 }
 class _CardItemState extends State<CartScreen> {
 
-   final List<CartItem> _cartItems = [];
+
   @override
   Widget build(BuildContext context) {
     price_=widget.product.price as double;
     idProduct=widget.product.id!;
-    return  MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => CartProvider(),
-        ),
-      ],
-      child: Scaffold(
+    return
+     Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
           leading: const BackButton(color: Color(0xFF40BFFF)),
         ),
         body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(
-              parent: AlwaysScrollableScrollPhysics()),
           child: Container(
             padding: const EdgeInsets.all(10),
             margin: const EdgeInsets.fromLTRB(10, 30, 10, 0),
@@ -76,15 +45,14 @@ class _CardItemState extends State<CartScreen> {
               children: [
                 Column(
                   children: [
+                   SingleChildScrollView(
+                     child:
                     SizedBox(
-                      height: 400,
+                      height: 300,
                       child: Consumer<CartProvider>(
                         builder: (context, cartProvider, child) {
-                          // final List<CartItem> cartItems =
-                          //     cartProvider.cartItems;
-                          CartItem cartitem = CartItem(product: widget.product);
-                          _cartItems.add(cartitem);
-                          List<CartItem> cartItems = _cartItems;
+                          final List<CartItem> cartItems =
+                              cartProvider.cartItems;
 
                           if (cartItems.isEmpty) {
                             return Center(
@@ -93,8 +61,8 @@ class _CardItemState extends State<CartScreen> {
                                 style: Theme.of(context).textTheme.titleLarge,
                               ),
                             );
-                          }
-                          return ListView.builder(
+                          }else {
+                            return ListView.builder(
                             itemCount: cartItems.length,
                             itemBuilder: (context, index) {
                               final cartItem = cartItems[index];
@@ -125,9 +93,10 @@ class _CardItemState extends State<CartScreen> {
                               );
                             },
                           );
+                          }
                         },
                       ),
-                    ),
+                    ),),
                     Consumer<CartProvider>(
                       builder: (context, cartProvider, child) {
                         return Container(
@@ -139,7 +108,9 @@ class _CardItemState extends State<CartScreen> {
                                   Expanded(child: Container()),
                                   ElevatedButton(
                                     onPressed: () {
-                                      _cartItems.clear();
+                                      Provider.of<CartProvider>(context,
+                                          listen: false)
+                                          .clearCart();
                                     },
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor:
@@ -165,22 +136,129 @@ class _CardItemState extends State<CartScreen> {
                                 children: [
                                   Text(
                                     'Total Price:',
-                                    style:
-                                        Theme.of(context).textTheme.titleMedium,
+                                    style: Theme.of(context).textTheme.titleMedium,
                                   ),
                                   Expanded(child: Container()),
                                   Text(
-                                    '\$${widget.product.price?.toStringAsFixed(2)}',
+                                    '\$${cartProvider.totalPrice.toStringAsFixed(2)}',
                                     style:
                                         Theme.of(context).textTheme.titleLarge,
                                   ),
                                 ],
                               ),
                               const SizedBox(
-                                height: 20,
+                                height: 30,
                               ),
-                              const SizedBox(
-                                height: 10,
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => const Home()),
+                                      );
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      height: 50,
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 16, vertical: 10),
+                                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5.0),
+                                        color: const Color(0xFF40BFFF),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: const Color(0xFF4C2E84).withOpacity(0.2),
+                                            offset: const Offset(0, 15.0),
+                                            blurRadius: 60.0,
+                                          ),
+                                        ],
+                                      ),
+                                      child: Text(
+                                        'Shopping',
+                                        style: GoogleFonts.inter(
+                                          fontSize: 16.0,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600,
+                                          height: 1.5,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () async {
+                                      final List<CartItem> cartItems2 =
+                                          cartProvider.cartItems;
+                                      if (cartItems2.isNotEmpty) {
+                                        //var timeNowFormated=DateFormat('yyyy-MM-ddTHH:mm:ss.000+00:00').format(DateTime.now()) ;
+                                        var timenow = DateTime.now();
+                                        var response = await http.post(
+                                            Uri.parse('http://localhost:3000/api/orders'),
+                                            body: json.encode(
+                                                {'idUser': id_, 'status' : "Shipping", 'price': cartProvider.totalPrice, 'createAt':timenow.toString(),'countItem':cartItems2.length}
+                                            ),
+                                            headers: {
+                                              'Content-Type': 'application/json'
+                                            }
+                                        );
+                                        var signInRes = SignInRes.fromJson(jsonDecode(response.body));
+                                        var orders = Orders.fromJson(signInRes.data!);
+                                        int idOrder=orders.idOrder;
+
+
+                                        for(int i = 0; i<cartItems2.length ; i++){
+                                          var responseOrderItem = await http.post(
+                                              Uri.parse('http://localhost:3000/api/orders_item'),
+                                              body: json.encode(
+                                                  {'idOrders': idOrder, 'quantity': cartItems2[i].quantity, 'idProduct':cartItems2[i].product.id,}
+                                              ),
+                                              headers: {
+                                                'Content-Type': 'application/json'
+                                              }
+                                          );
+                                          jsonDecode(responseOrderItem.body);
+                                        }
+
+
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => const Home()),
+                                        );
+                                      }
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      height: 50,
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 16, vertical: 10),
+                                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5.0),
+                                        color: const Color(0xFF40BFFF),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: const Color(0xFF4C2E84).withOpacity(0.2),
+                                            offset: const Offset(0, 15.0),
+                                            blurRadius: 60.0,
+                                          ),
+                                        ],
+                                      ),
+                                      child: Text(
+                                        'Check out',
+                                        style: GoogleFonts.inter(
+                                          fontSize: 16.0,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600,
+                                          height: 1.5,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
@@ -190,51 +268,12 @@ class _CardItemState extends State<CartScreen> {
                   ],
                 ),
 
-                GestureDetector(
-                  onTap: () {
-                    if (_cartItems.isNotEmpty) {
-                      addOrder();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const Home()),
-                      );
-                    }
-                  },
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: 65,
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 10),
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.0),
-                      color: const Color(0xFF40BFFF),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0xFF4C2E84).withOpacity(0.2),
-                          offset: const Offset(0, 15.0),
-                          blurRadius: 60.0,
-                        ),
-                      ],
-                    ),
-                    child: Text(
-                      'Check out',
-                      style: GoogleFonts.inter(
-                        fontSize: 16.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        height: 1.5,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
                 //button checkout
               ],
             ),
           ),
         ),
-      ),
+
     );
   }
 }

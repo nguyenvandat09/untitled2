@@ -63,7 +63,7 @@ class ListOrders extends StatelessWidget {
                       if(snapshot.data!.isEmpty) {
                       return SizedBox(
                         height: 200,
-                        width: 200,
+
                         child: Column(
                           children: [
                             const Text(
@@ -125,7 +125,7 @@ class ListOrders extends StatelessWidget {
                         Container(
                           margin: const EdgeInsets.all(10),
                           padding: const EdgeInsets.all(15),
-                          height: 155,
+                          height: 175,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
                             border: Border.all(
@@ -187,6 +187,30 @@ class ListOrders extends StatelessWidget {
                                     .spaceBetween,
                                 children: [
                                   const Text(
+                                    "Item :",
+                                    style: TextStyle(
+                                      color: Color(0xFF9098B1),
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  Text(
+                                    "\$${snapshot.data![index].countItem}",
+                                    style: const TextStyle(
+                                      color: Color(0xFF223263),
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Container(
+                                margin: const EdgeInsets.symmetric(
+                                    vertical: 5),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment
+                                    .spaceBetween,
+                                children: [
+                                  const Text(
                                     "Price:",
                                     style: TextStyle(
                                       color: Color(0xFF9098B1),
@@ -202,6 +226,7 @@ class ListOrders extends StatelessWidget {
                                   ),
                                 ],
                               ),
+
                             ],
                           ),
                         ),

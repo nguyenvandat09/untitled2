@@ -36,7 +36,7 @@ class ListItemOrdersState extends State<ListItemOrdersScreen> {
     for (int i = 0; i < review.length; i++) {
       countItem++;
       response2 = await http.get(
-        Uri.parse('http://localhost:3000/api/product/${review[i].id}'),
+        Uri.parse('http://localhost:3000/api/product/${review[i].idProduct}'),
         headers: {"Content-Type": "application/json; charset=utf-8"},
       );
 
@@ -47,16 +47,10 @@ class ListItemOrdersState extends State<ListItemOrdersScreen> {
       picturesProduct.add(product.urlPicture.toString());
       priceProduct.add(product.price.toString());
     }
-    if (response.statusCode == 200) {
-      var baseResponse = BaseResponse.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
       //print(baseResponse.message);
       return (baseResponse.data as List?)
           ?.map((dynamic e) => OrdersItem.fromJson(e as Map<String, dynamic>))
           .toList() ?? [];
-
-    } else {
-      throw Exception('Failed to load data');
-    }
   }
   @override
   Widget build(BuildContext context) {
@@ -304,7 +298,7 @@ class ListItemOrdersState extends State<ListItemOrdersScreen> {
                             .spaceBetween,
                         children: [
                            Text(
-                            "Items($countItem)",
+                            "Items(${widget.orders.countItem})",
                             style:const  TextStyle(
                               color: Color(0xFF9098B1),
                               fontSize: 14,

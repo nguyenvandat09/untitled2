@@ -432,8 +432,10 @@ class _ProductGridItemState extends State<DetailsScreen> {
                         height: 53,
                         child: ElevatedButton(
                           onPressed: () {
+
                             Provider.of<CartProvider>(context, listen: false)
                                 .addToCart(widget.product, 1, "");
+
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -441,6 +443,7 @@ class _ProductGridItemState extends State<DetailsScreen> {
                               ),
                             );
                           },
+
                           style: ElevatedButton.styleFrom(
                             backgroundColor: primaryColor,
                             //shape: const StadiumBorder()

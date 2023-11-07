@@ -11,17 +11,15 @@ class CartProvider extends ChangeNotifier {
 
   void addToCart(Product product, int quantity, String selectedVariant) {
 
-    var existingCartItem = _cartItems.firstWhereOrNull(
-          (item) => item.product.id == product.id,
-    );
+    var existingCartItem = _cartItems.firstWhereOrNull((item) => item.product.id == product.id,);
 
     if (existingCartItem != null) {
       existingCartItem.quantity += quantity;
     } else {
       _cartItems.add(CartItem(product: product, quantity: quantity));
-      print(_cartItems.length);
-      //prefs.setStringList("listcart", _cartItems.cast<String>());
     }
+    //print("b : ${_cartItems[0].product.name}");
+
     notifyListeners();
   }
 

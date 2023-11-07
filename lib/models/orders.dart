@@ -5,13 +5,14 @@ class Orders {
   final String status;
   final double price;
   final String? timeOder;
-
+  final int countItem;
   Orders({
     required this.idOrder,
     required this.idUser,
     required this.status,
     required this.price,
     required this.timeOder,
+    required this.countItem,
   });
 
   factory Orders.fromJson(Map<String, dynamic> json) {
@@ -21,6 +22,7 @@ class Orders {
       status:json['status'] ?? '',
       price: json['price'] ?? '',
       timeOder: json['createAt'] ?? '',
+        countItem : json['countItem'] ?? '',
     );
   }
 
