@@ -21,7 +21,6 @@ class DetailsScreen extends StatefulWidget {
   const DetailsScreen({super.key, required this.product, required this.statusFavorite});
   final Product product;
   final bool statusFavorite;
-
   @override
   State<DetailsScreen> createState() => _ProductGridItemState();
 }
@@ -71,7 +70,7 @@ class _ProductGridItemState extends State<DetailsScreen> {
   }
   Future<bool> onLikeButtonTapped(bool isLiked) async{
     if (!isLiked) {
-         print('new');
+
           var responseOrderItem = await http.post(
               Uri.parse(
                   'http://localhost:3000/api/favorite'),
@@ -85,7 +84,7 @@ class _ProductGridItemState extends State<DetailsScreen> {
               });
          jsonDecode(responseOrderItem.body);
     }else{
-      print('update');
+
     }
     return !isLiked;
   }
@@ -151,7 +150,6 @@ class _ProductGridItemState extends State<DetailsScreen> {
                                 statusF = true;
                               }
                             }
-
                             // if(isLiked){
                             // }
                             return Icon(
@@ -170,9 +168,8 @@ class _ProductGridItemState extends State<DetailsScreen> {
                     FivePointedStar(
                       defaultSelectedCount: widget.product.ratting as int,
                       count: 5,
-                      selectedColor:const Color(0xFFFFEB00) ,
+                      selectedColor:const Color(0xFFFFEB00),
                       size: const Size(20,20),
-
                     ),
                     Container(
                       margin: const EdgeInsets.symmetric(vertical: 5),

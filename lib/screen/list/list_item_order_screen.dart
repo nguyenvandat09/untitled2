@@ -73,7 +73,6 @@ class ListItemOrdersState extends State<ListItemOrdersScreen> {
         ),
       ),
       body:  SingleChildScrollView(
-
         child:Container(
           color:  Colors.white,
           margin: const EdgeInsets.only(top: 20),
@@ -107,7 +106,7 @@ class ListItemOrdersState extends State<ListItemOrdersScreen> {
                           itemBuilder: (context, index) {
                             return Container(
                               margin:const EdgeInsets.all(10),
-                              padding: const EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(12),
                               decoration:  BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: const BorderRadius.all(Radius.circular(12.0)),
@@ -121,11 +120,15 @@ class ListItemOrdersState extends State<ListItemOrdersScreen> {
                                 children: [
                                   Row(
                                     children: [
-                                      Image.network(
-                                        picturesProduct[index].toString(),
-                                        fit: BoxFit.cover,
-                                        width: 100,
-                                        height: 100,
+
+                                      Container(
+                                        margin:const EdgeInsets.all(5),
+                                        child:  Image.network(
+                                          picturesProduct[index].toString(),
+                                          fit: BoxFit.cover,
+                                          width: 100,
+                                          height: 100,
+                                        ),
                                       ),
                                       Column(
                                         children: [
@@ -285,7 +288,7 @@ class ListItemOrdersState extends State<ListItemOrdersScreen> {
                 Container(
                   margin:const EdgeInsets.all(10),
                   padding: const EdgeInsets.all(20),
-                  height: 120,
+                  height: 150,
                   decoration:  BoxDecoration(
                     color: Colors.white,
                     borderRadius: const BorderRadius.all(Radius.circular(12.0)),
@@ -342,7 +345,7 @@ class ListItemOrdersState extends State<ListItemOrdersScreen> {
                       ),
                       Container(
                         margin: const EdgeInsets.symmetric(
-                            vertical: 15),
+                            vertical: 7),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment

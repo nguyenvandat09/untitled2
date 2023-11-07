@@ -14,13 +14,14 @@ class ListOrders extends StatelessWidget {
     final response = await http.get(
       Uri.parse('http://localhost:3000/api/orders/getordersbyiduser/$id_'),
       headers: {"Content-Type": "application/json; charset=utf-8"},);
-
+    List<Orders> listOrder;
     if (response.statusCode == 200) {
       var baseResponse = BaseResponse.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
-      return (baseResponse.data as List?)?.map((dynamic e) => Orders.fromJson(e as Map<String,dynamic>)).toList() ??[];
+     listOrder=  (baseResponse.data as List?)?.map((dynamic e) => Orders.fromJson(e as Map<String,dynamic>)).toList() ??[];
     } else {
       throw Exception('Failed to load data');
     }
+    return listOrder.reversed.toList();
   }
 
   @override

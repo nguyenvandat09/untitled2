@@ -72,8 +72,8 @@ class HomeMain extends StatelessWidget {
                   ),
 
                   IconButton(
-                   icon:const Icon(Icons.favorite_outline),
-                    color: const Color(0xFF9098B1),
+                   icon:const Icon(Icons.favorite_outlined),
+                    color: const Color(0xFFFB7181),
                     iconSize: 28,
                     onPressed: () {
                       Navigator.push(
