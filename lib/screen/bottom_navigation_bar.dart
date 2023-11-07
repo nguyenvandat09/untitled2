@@ -1,11 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:untitled2/models/Product.dart';
+import 'package:untitled2/screen/cart_screen.dart';
 import 'package:untitled2/screen/home_main.dart';
 import 'package:untitled2/screen/account_screen.dart';
 import 'package:untitled2/screen/offer_screen.dart';
 import 'package:untitled2/screen/explore_screeen.dart';
-import 'cart_null.dart';
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
   @override
@@ -20,7 +20,7 @@ class BottomNavigationExampleState extends State {
       child: HomeMain(),
     ),
      const ExporeScreen(),
-    const CartScreennull(),
+    const CartScreen(),
     const OfferScreen(),
     const AccountScreen(),
 

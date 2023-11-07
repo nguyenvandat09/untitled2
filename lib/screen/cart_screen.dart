@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled2/screen/componets/cart_list_items.dart';
 import 'package:untitled2/main.dart';
@@ -16,11 +15,10 @@ import 'package:http/http.dart' as http;
 class CartScreen extends StatefulWidget {
   @override
   State<CartScreen> createState() => _CardItemState();
-  const CartScreen({Key? key, required this.product}) : super(key: key);
-  final Product product;
+  const CartScreen({Key? key}) : super(key: key);
+
 }
-late double price_;
-late  int idProduct;
+
 Future addOrder() async{
 
 }
@@ -29,8 +27,6 @@ class _CardItemState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    price_=widget.product.price as double;
-    idProduct=widget.product.id!;
     return
      Scaffold(
         appBar: AppBar(
@@ -140,7 +136,7 @@ class _CardItemState extends State<CartScreen> {
                                   ),
                                   Expanded(child: Container()),
                                   Text(
-                                    '\$${cartProvider.totalPrice.toStringAsFixed(2)}',
+                                    '\$${cartProvider.totalPrice.toStringAsFixed(0)}',
                                     style:
                                         Theme.of(context).textTheme.titleLarge,
                                   ),

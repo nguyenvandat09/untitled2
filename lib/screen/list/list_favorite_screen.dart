@@ -166,7 +166,7 @@ class ListFavoriteState extends State<ListFavoriteScreenState> {
                               for (int i = 0; i < listLike.length; i++) {
                                 if (listLike[i].idUser == id_) {
                                   statuses = true;
-                                  print(statuses);
+
                                 }
                               }
                             }
@@ -181,7 +181,7 @@ class ListFavoriteState extends State<ListFavoriteScreenState> {
                             );
                           },
                           child: Container(
-                              height: 300,
+                              height: 320,
                               padding: const EdgeInsets.all(defaultPadding / 2),
                               decoration: BoxDecoration(
                                 color: Colors.white,
@@ -192,9 +192,10 @@ class ListFavoriteState extends State<ListFavoriteScreenState> {
                                   color: const Color(0xFFEFEFEF),
                                 ),
                               ),
-                              child: Center(
+
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Container(
                                       alignment: Alignment.center,
@@ -212,21 +213,19 @@ class ListFavoriteState extends State<ListFavoriteScreenState> {
                                     ),
                                     const SizedBox(height: 6),
                                     Container(
-                                      margin: const EdgeInsets.symmetric(
-                                          vertical: 2, horizontal: 32),
-                                      child: FivePointedStar(
+                                      margin:const EdgeInsets.symmetric(horizontal: 25),
+                                      alignment: Alignment.center,
+                                      child:
+                                      FivePointedStar(
                                         defaultSelectedCount: snapshot
                                             .data![index].ratting as int,
                                         count: 5,
                                         selectedColor: const Color(0xFFFFEB00),
-                                        size: const Size(12, 12),
-                                      ),
+                                        size: const Size(12, 12),),
                                     ),
-                                    const SizedBox(height: 6),
-                                    Container(
-                                      margin: const EdgeInsets.symmetric(
-                                          vertical: 2),
-                                    ),
+
+                                    const SizedBox(height: 8),
+
                                     Text(
                                       "\$${snapshot.data![index].price}",
                                       style: const TextStyle(
@@ -236,7 +235,7 @@ class ListFavoriteState extends State<ListFavoriteScreenState> {
                                     )
                                   ],
                                 ),
-                              )),
+                              ),
                         );
                     },
 

@@ -439,7 +439,7 @@ class _ProductGridItemState extends State<DetailsScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => CartScreen( product:widget.product,),
+                                builder: (context) => const CartScreen(),
                               ),
                             );
                           },
