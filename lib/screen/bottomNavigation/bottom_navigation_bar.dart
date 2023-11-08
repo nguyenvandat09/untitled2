@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:untitled2/models/Product.dart';
+import 'package:untitled2/provider/cart_provider.dart';
 import 'package:untitled2/screen/bottomNavigation/cart_screen.dart';
 import 'package:untitled2/screen/bottomNavigation/home_main.dart';
 import 'package:untitled2/screen/bottomNavigation/account_screen.dart';
@@ -36,31 +38,39 @@ class BottomNavigationExampleState extends State {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => false,
-      child: Scaffold(
-      body: _pages[_selectedTab],
-      bottomNavigationBar: Theme(
-        data: ThemeData(
-          canvasColor: const Color(0xFFFFFFFF),
-        ),
-        child: BottomNavigationBar(
+      child:Consumer<CartProvider>(
+        builder: (context, cartProvider, child) {
+          return  Scaffold(
+            body: _pages[_selectedTab],
+            bottomNavigationBar: Theme(
+              data: ThemeData(
+                canvasColor: const Color(0xFFFFFFFF),
+              ),
+              child: BottomNavigationBar(
 
-          selectedIconTheme: const IconThemeData(color:  Color(0xFF40BFFF), size: 27),
-          currentIndex: _selectedTab,
-          onTap: (index) => _changeTab(index),
-          selectedItemColor: const Color(0xFF40BFFF),
-          unselectedItemColor: Colors.grey,
-          showUnselectedLabels: true,
+                selectedIconTheme: const IconThemeData(color:  Color(0xFF40BFFF), size: 27),
+                currentIndex: _selectedTab,
+                onTap: (index) => _changeTab(index),
+                selectedItemColor: const Color(0xFF40BFFF),
+                unselectedItemColor: Colors.grey,
+                showUnselectedLabels: true,
 
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "Home"),
-            BottomNavigationBarItem(icon: Icon(Icons.search), label: "Explore"),
-            BottomNavigationBarItem(icon:Icon(Icons.shopping_cart_outlined), label: "Card",),
-            BottomNavigationBarItem(icon: Icon(Icons.local_offer_outlined), label: "Offer"),
-            BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: "Account"),
-          ],
-        ),
+                items:  [
+                  const BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "Home"),
+                  const BottomNavigationBarItem(icon: Icon(Icons.search), label: "Explore"),
+                  BottomNavigationBarItem(icon:Badge(
+                    label: Text(cartProvider.cartCount.toString()),
+                    child:const Icon(Icons.shopping_cart_outlined),
+                  ), label: "Card",),
+                  const BottomNavigationBarItem(icon: Icon(Icons.local_offer_outlined), label: "Offer"),
+                  const BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: "Account"),
+                ],
+              ),
+            ),
+          );
+        },
       ),
-    ),
+
     );
   }
 }

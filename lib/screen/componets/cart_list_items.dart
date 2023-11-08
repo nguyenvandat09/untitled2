@@ -85,45 +85,7 @@ class _CartListItemState extends State<CartListItem> {
                             height: 30,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: Theme.of(context).colorScheme.primary,
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Colors.grey,
-                                  offset: Offset(
-                                    1.0,
-                                    1.0,
-                                  ),
-                                  blurRadius: 1.0,
-                                ),
-                              ],
-                            ),
-                            child: IconButton(
-                              icon: const Icon(Icons.add),
-                              color: Colors.white,
-                              iconSize: 16,
-                              onPressed: () {
-                                Provider.of<CartProvider>(context,
-                                    listen: false)
-                                    .increaseCartItemQuantity(widget.index);
-                              },
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            widget.cartItem.quantity.toString(),
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Container(
-                            width: 30,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: Theme.of(context).colorScheme.primary,
+                              color: const Color(0xFF40BFFF),
                               boxShadow: const [
                                 BoxShadow(
                                   color: Colors.grey,
@@ -145,6 +107,45 @@ class _CartListItemState extends State<CartListItem> {
                                       listen: false)
                                       .decreaseCartItemQuantity(widget.index);
                                 }
+                              },
+                            ),
+                          ),
+
+                          const SizedBox(
+                            width: 6,
+                          ),
+                          Text(
+                            widget.cartItem.quantity.toString(),
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          const SizedBox(
+                            width: 6,
+                          ),
+                          Container(
+                            width: 30,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: const Color(0xFF40BFFF),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  offset: Offset(
+                                    1.0,
+                                    1.0,
+                                  ),
+                                  blurRadius: 1.0,
+                                ),
+                              ],
+                            ),
+                            child: IconButton(
+                              icon: const Icon(Icons.add),
+                              color: Colors.white,
+                              iconSize: 16,
+                              onPressed: () {
+                                Provider.of<CartProvider>(context,
+                                    listen: false)
+                                    .increaseCartItemQuantity(widget.index);
                               },
                             ),
                           ),

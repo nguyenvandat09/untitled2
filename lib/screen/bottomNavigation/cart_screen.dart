@@ -120,12 +120,30 @@ class _CardItemState extends State<CartScreen> {
                   color: Colors.grey,
                 ),
                 const SizedBox(
-                  height: 5,
+                  height: 6,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      'Ship Price:',
+
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    Expanded(child: Container()),
+                    Text(
+                      '\$${cartProvider.cartItems.length*10}',
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 6,
                 ),
                 Row(
                   children: [
                     Text(
                       'Total Price:',
+
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     Expanded(child: Container()),
@@ -136,7 +154,7 @@ class _CardItemState extends State<CartScreen> {
                   ],
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 20,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
