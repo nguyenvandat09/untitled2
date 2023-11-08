@@ -100,16 +100,7 @@ class Categories extends StatelessWidget {
 
                            ),
                          );
-                         // return ListTile(
-                         //   leading: CircleAvatar(
-                         //     child: Image.network(
-                         //         snapshot.data![index].avatar.toString()),
-                         //   ),
-                         //   title: Text(snapshot.data![index].name.toString()),
-                         //   trailing:
-                         //   Text(snapshot.data![index].amount.toString()),
-                         //   subtitle: Text(snapshot.data![index].date.toString()),
-                         // );
+
                        },
                      ),
                    );

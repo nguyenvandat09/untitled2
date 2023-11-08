@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:untitled2/screen/bottom_navigation_bar.dart';
+import 'package:untitled2/screen/bottomNavigation/bottom_navigation_bar.dart';
 import 'package:untitled2/main.dart';
 import 'dart:convert';
 import 'dart:async';

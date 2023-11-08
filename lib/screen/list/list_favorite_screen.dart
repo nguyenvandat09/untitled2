@@ -9,7 +9,7 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:untitled2/models/favorites.dart';
 import 'package:untitled2/models/signRes.dart';
-import 'package:untitled2/screen/bottom_navigation_bar.dart';
+import 'package:untitled2/screen/bottomNavigation/bottom_navigation_bar.dart';
 import 'package:untitled2/screen/componets/details_screen.dart';
 
 class ListFavoriteScreen extends StatelessWidget {

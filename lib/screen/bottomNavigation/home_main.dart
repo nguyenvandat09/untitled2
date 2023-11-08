@@ -6,7 +6,7 @@ import 'package:untitled2/screen/list/list_favorite_screen.dart';
 import 'package:untitled2/screen/listProduct/flashsale.dart';
 import 'package:untitled2/screen/listProduct/list_product_gird.dart';
 import 'package:untitled2/screen/listProduct/megasale.dart';
-import 'category.dart';
+import '../category.dart';
 import 'package:untitled2/screen/clock/Clock.dart';
 import 'package:untitled2/screen/notification_screen.dart';
 

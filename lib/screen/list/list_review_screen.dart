@@ -11,7 +11,7 @@ import 'package:untitled2/models/like_status.dart';
 import 'package:untitled2/models/reviews.dart';
 import 'package:untitled2/models/signRes.dart';
 import 'package:untitled2/models/user.dart';
-import 'package:untitled2/screen/bottom_navigation_bar.dart';
+import 'package:untitled2/screen/bottomNavigation/bottom_navigation_bar.dart';
 import 'package:untitled2/screen/componets/details_screen.dart';
 import 'package:untitled2/screen/write_review_screen.dart';
 import 'package:like_button/like_button.dart';

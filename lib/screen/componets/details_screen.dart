@@ -9,7 +9,7 @@ import 'package:untitled2/models/base_response.dart';
 import 'package:untitled2/models/reviews.dart';
 import 'package:untitled2/provider/cart_provider.dart';
 import 'package:untitled2/screen/componets/color_dot.dart';
-import 'package:untitled2/screen/cart_screen.dart';
+import 'package:untitled2/screen/bottomNavigation/cart_screen.dart';
 import 'package:five_pointed_star/five_pointed_star.dart';
 import 'package:untitled2/screen/list/list_review_screen.dart';
 
@@ -446,7 +446,7 @@ class _ProductGridItemState extends State<DetailsScreen> {
 
                           style: ElevatedButton.styleFrom(
                             backgroundColor: primaryColor,
-                            shape: const StadiumBorder()
+                            // shape: const StadiumBorder()
                           ),
                           child: const Text("Add to Cart"),
                         ),

@@ -7,6 +7,7 @@ import 'package:untitled2/models/cart_item.dart';
 import 'package:untitled2/models/orders.dart';
 import 'package:untitled2/models/signRes.dart';
 import 'package:untitled2/provider/cart_provider.dart';
+import 'package:untitled2/screen/success_screen.dart';
 import 'bottom_navigation_bar.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -15,7 +16,6 @@ class CartScreen extends StatefulWidget {
   @override
   State<CartScreen> createState() => _CardItemState();
   const CartScreen({Key? key}) : super(key: key);
-
 }
 class _CardItemState extends State<CartScreen> {
   @override
@@ -215,7 +215,7 @@ class _CardItemState extends State<CartScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const Home()),
+                                builder: (context) => const successScreen()),
                           );
                         }
                       },

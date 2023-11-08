@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:untitled2/screen/address_screem.dart';
-import 'package:untitled2/screen/change_password_screeen.dart';
-import 'package:untitled2/screen/gender_screen.dart';
-import 'package:untitled2/screen/change_phone_screen.dart';
-import 'package:untitled2/screen/change_mail_screen.dart';
+import 'package:untitled2/screen/changeInformationProfile/address_screem.dart';
+import 'package:untitled2/screen/changeInformationProfile/change_password_screeen.dart';
+import 'package:untitled2/screen/changeInformationProfile/gender_screen.dart';
+import 'package:untitled2/screen/changeInformationProfile/change_phone_screen.dart';
+import 'package:untitled2/screen/changeInformationProfile/change_mail_screen.dart';
 import 'package:untitled2/main.dart';
 
 class ProfileScreen extends StatelessWidget {

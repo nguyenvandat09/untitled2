@@ -8,8 +8,6 @@ class OfferScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(
-        parent: AlwaysScrollableScrollPhysics()),
         child:Column(
         children: [
           Container(
@@ -81,7 +79,7 @@ class OfferScreen extends StatelessWidget {
               Container(
                   alignment: Alignment.centerLeft,
                   margin: const EdgeInsets.symmetric(vertical: 50,horizontal: 50),
-                  child: Column(children: const [
+                  child: const Column(children: [
                     Text(
                       'Super Flash Sale\n50% OFF',
                       style: TextStyle(color: Colors.white,
@@ -110,7 +108,7 @@ class OfferScreen extends StatelessWidget {
               Container(
                 alignment: Alignment.centerLeft,
                 margin: const EdgeInsets.symmetric(vertical: 50,horizontal: 50),
-                child: Column(children: const [
+                child: const Column(children: [
                   Text(
                     '90% Off Super Mega Sale',
                     style: TextStyle(color: Colors.white,
