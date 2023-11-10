@@ -8,6 +8,7 @@ import 'package:untitled2/screen/bottomNavigation/home_main.dart';
 import 'package:untitled2/screen/bottomNavigation/account_screen.dart';
 import 'package:untitled2/screen/bottomNavigation/offer_screen.dart';
 import 'package:untitled2/screen/bottomNavigation/explore_screeen.dart';
+
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
   @override
@@ -25,7 +26,6 @@ class BottomNavigationExampleState extends State {
     const CartScreen(),
     const OfferScreen(),
     const AccountScreen(),
-
   ];
 
   _changeTab(int index) {
@@ -58,10 +58,12 @@ class BottomNavigationExampleState extends State {
                 items:  [
                   const BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "Home"),
                   const BottomNavigationBarItem(icon: Icon(Icons.search), label: "Explore"),
-                  BottomNavigationBarItem(icon:Badge(
-                    label: Text(cartProvider.cartCount.toString()),
-                    child:const Icon(Icons.shopping_cart_outlined),
-                  ), label: "Card",),
+                  BottomNavigationBarItem(
+                    icon:Badge(
+                      label: Text(cartProvider.cartItems.length.toString()),
+                      child:const Icon(Icons.shopping_cart_outlined),
+                    ), label: "Card",
+                  ),
                   const BottomNavigationBarItem(icon: Icon(Icons.local_offer_outlined), label: "Offer"),
                   const BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: "Account"),
                 ],

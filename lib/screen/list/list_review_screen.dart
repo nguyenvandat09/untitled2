@@ -15,6 +15,7 @@ import 'package:untitled2/screen/bottomNavigation/bottom_navigation_bar.dart';
 import 'package:untitled2/screen/componets/details_screen.dart';
 import 'package:untitled2/screen/write_review_screen.dart';
 import 'package:like_button/like_button.dart';
+
 // ignore: camel_case_types
 class HomeListReviewPage extends StatelessWidget {
   const HomeListReviewPage({super.key});
@@ -63,7 +64,6 @@ class ListReviewState extends State<ListReviewScreen> {
       nameuser.add(user.name);
       picturesReview.add(user.avatarUser);
 
-
     }
 
     if (response.statusCode == 200) {
@@ -91,6 +91,7 @@ class ListReviewState extends State<ListReviewScreen> {
       Uri.parse('http://localhost:3000/api/reviews/$idDelete'),
       headers: {"Content-Type": "application/json; charset=utf-8"},
     );
+    // ignore: avoid_print
     print(response);
 
   }
@@ -189,49 +190,43 @@ class ListReviewState extends State<ListReviewScreen> {
                                          ),
                                        ],
                                      ),
+                                      Visibility(
+                                        visible: isVisible,
+                                        child: IconButton(
+                                          icon: const Icon(Icons.delete_outline),
+                                          color: const Color(0xFF40BFFF),
+                                          iconSize: 21,
+                                          onPressed: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                    title: const Text('Notification'),
+                                                    content: const Text('Do you want to remove review ?'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () {
+                                                          deleteReview( snapshot.data![index].id.toString());
+                                                          Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                              builder: (context) => const HomeListReviewPage(),
+                                                            ),
+                                                          );
+                                                        },
+                                                        child: const Text('Yes'),
+                                                      ),
+                                                      TextButton(
+                                                          onPressed: () => Navigator.pop(context, true),
+                                                        child: const Text('No'),
+                                                      ),
+                                                    ],
 
+                                                );
+                                              },
+                                            );
 
-                                      Container(
-                                        margin: const EdgeInsets.fromLTRB(5, 5, 5, 45),
-                                        child: Visibility(
-                                          visible: isVisible,
-                                          child: IconButton(
-                                            icon: const Icon(Icons.delete_outline),
-                                            color: const Color(0xFF40BFFF),
-                                            iconSize: 21,
-                                            onPressed: () {
-                                              showDialog(
-                                                context: context,
-                                                builder: (BuildContext context) {
-                                                  return Expanded(
-                                                    child: AlertDialog(
-                                                      title: const Text('Notification'),
-                                                      content: const Text('Do you want to remove review ?'),
-                                                      actions: [
-                                                        TextButton(
-                                                          onPressed: () {
-                                                            deleteReview( snapshot.data![index].id.toString());
-                                                            Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                builder: (context) => const HomeListReviewPage(),
-                                                              ),
-                                                            );
-                                                          },
-                                                          child: const Text('Yes'),
-                                                        ),
-                                                        TextButton(
-                                                            onPressed: () => Navigator.pop(context, true),
-                                                          child: const Text('No'),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  );
-                                                },
-                                              );
-
-                                            },
-                                          ),
+                                          },
                                         ),
                                       ),
 
@@ -346,29 +341,7 @@ class ListReviewState extends State<ListReviewScreen> {
                 },
               ),
 
-              Container(
-                margin:const EdgeInsets.fromLTRB(16, 20, 16, 30),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: 53,
-                  child: ElevatedButton(
-                    onPressed: () {
 
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const AddReviewScreen(),
-                        ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: primaryColor,
-                      //shape: const StadiumBorder()
-                    ),
-                    child: const Text("Write Review"),
-                  ),
-                ),
-              ),
               Container(margin:const EdgeInsets.all(10),)
             ],
           ),
@@ -377,7 +350,29 @@ class ListReviewState extends State<ListReviewScreen> {
         ),
 
       ),
+      bottomNavigationBar: Container(
+        margin:const EdgeInsets.fromLTRB(16, 20, 16, 20),
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: 53,
+          child: ElevatedButton(
+            onPressed: () {
 
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const AddReviewScreen(),
+                ),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: primaryColor,
+              //shape: const StadiumBorder()
+            ),
+            child: const Text("Write Review"),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -401,7 +396,6 @@ Future listLikeStatus(int id) async {
       if (listLike[i].idReview == id) {
         if (listLike[i].statusLike == id_) {
           status = true;
-
         }
       }
     }

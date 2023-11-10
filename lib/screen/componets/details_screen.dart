@@ -443,7 +443,6 @@ class _ProductGridItemState extends State<DetailsScreen> {
                               ),
                             );
                           },
-
                           style: ElevatedButton.styleFrom(
                             backgroundColor: primaryColor,
                             // shape: const StadiumBorder()
@@ -455,7 +454,6 @@ class _ProductGridItemState extends State<DetailsScreen> {
                   ],
                 ),
               ),
-
           ],
         ),
     ),

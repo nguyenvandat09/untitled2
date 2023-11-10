@@ -17,7 +17,6 @@ class CartListItem extends StatefulWidget {
 class _CartListItemState extends State<CartListItem> {
   String currency = "₦";
   int quantity = 1;
-
   @override
   Widget build(BuildContext context) {
     return Container(

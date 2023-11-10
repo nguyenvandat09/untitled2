@@ -92,7 +92,7 @@ class _CardItemState extends State<CartScreen> {
       bottomNavigationBar: Consumer<CartProvider>(
         builder: (context, cartProvider, child) {
           return Container(
-            height: 230,
+            height: 240,
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
@@ -125,6 +125,23 @@ class _CardItemState extends State<CartScreen> {
                 Row(
                   children: [
                     Text(
+                      'Items',
+
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    Expanded(child: Container()),
+                    Text(
+                      '(${cartProvider.cartItems.length})',
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 6,
+                ),
+                Row(
+                  children: [
+                    Text(
                       'Ship Price:',
 
                       style: Theme.of(context).textTheme.titleSmall,
@@ -148,7 +165,7 @@ class _CardItemState extends State<CartScreen> {
                     ),
                     Expanded(child: Container()),
                     Text(
-                      '\$${cartProvider.totalPrice.toStringAsFixed(0)}',
+                      '\$${cartProvider.totalPrice+cartProvider.cartItems.length*10}',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ],
