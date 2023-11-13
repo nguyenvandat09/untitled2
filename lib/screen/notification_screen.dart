@@ -77,6 +77,7 @@ class NotificationScreen extends StatelessWidget{
                 )
               ],
             ),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -122,6 +123,7 @@ class NotificationScreen extends StatelessWidget{
                 )
               ],
             ),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

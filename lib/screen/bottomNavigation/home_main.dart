@@ -82,6 +82,7 @@ class HomeMain extends StatelessWidget {
                       );
                     },
                   ),
+
                   Stack(
                     children: <Widget>[
                       Container(
@@ -100,7 +101,7 @@ class HomeMain extends StatelessWidget {
                       ),
                        Container(
                             alignment: Alignment.centerRight,
-                            margin: const EdgeInsets.fromLTRB(27, 10, 0, 0),
+                            margin: const EdgeInsets.fromLTRB(26, 9, 0, 0),
                             child: const CircleAvatar(
                               backgroundColor: Color(0xFFFB7181),
                               radius: 5.5,

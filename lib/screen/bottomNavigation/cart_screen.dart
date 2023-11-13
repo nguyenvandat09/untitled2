@@ -23,7 +23,28 @@ class _CardItemState extends State<CartScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: const BackButton(color: Color(0xFF40BFFF)),
+        leading:IconButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Home()),
+            );
+          },
+          icon: const Icon(
+            Icons.navigate_before,
+            color: Color(0xFF40BFFF),
+            size: 30,
+          ),
+        ) ,
+        title: const Text(
+          "Your Cart",
+          style: TextStyle(
+              color: Color(0xFF223263),
+              fontSize: 18,
+              fontWeight: FontWeight.w700
+          ),
+        ),
+
       ),
       body: SingleChildScrollView(
         child: Container(

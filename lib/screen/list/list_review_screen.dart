@@ -13,6 +13,7 @@ import 'package:untitled2/models/signRes.dart';
 import 'package:untitled2/models/user.dart';
 import 'package:untitled2/screen/bottomNavigation/bottom_navigation_bar.dart';
 import 'package:untitled2/screen/componets/details_screen.dart';
+import 'package:untitled2/screen/list/list_reply_screen.dart';
 import 'package:untitled2/screen/write_review_screen.dart';
 import 'package:like_button/like_button.dart';
 
@@ -149,58 +150,58 @@ class ListReviewState extends State<ListReviewScreen> {
                             }else{
                               isVisible =false;
                             }
-                            return Container(
-                              margin: const EdgeInsets.all(10),
-                              padding: const EdgeInsets.all(15),
+                            return  Container(
+                                margin: const EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(15),
 
-                              child: Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                     Row(
-                                       children: [
-                                         ClipOval(
-                                           child: Image.network(
-                                             picturesReview[index],
-                                             width: 63.0,
-                                             height: 63.0,
-                                           ),
-                                         ),
-                                         Container(
-                                           margin: const EdgeInsets.symmetric(horizontal: 3),
-                                         ),
-                                         Column(
-                                           children:  [
-                                             Text(
-                                               nameuser[index],
-                                               style:const  TextStyle(
-                                                   fontSize: 15,
-                                                   color: Color(0xFF223263)
-                                               ),
-                                             ),
-                                             FivePointedStar(
-                                               defaultSelectedCount:snapshot.data![index].ratting as int ,
-                                               count: 5,
-                                               selectedColor:const Color(0xFFFFEB00) ,
-                                               size: const Size(15,15),
-                                             ),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            ClipOval(
+                                              child: Image.network(
+                                                picturesReview[index],
+                                                width: 63.0,
+                                                height: 63.0,
+                                              ),
+                                            ),
+                                            Container(
+                                              margin: const EdgeInsets.symmetric(horizontal: 3),
+                                            ),
+                                            Column(
+                                              children:  [
+                                                Text(
+                                                  nameuser[index],
+                                                  style:const  TextStyle(
+                                                      fontSize: 15,
+                                                      color: Color(0xFF223263)
+                                                  ),
+                                                ),
+                                                FivePointedStar(
+                                                  defaultSelectedCount:snapshot.data![index].ratting as int ,
+                                                  count: 5,
+                                                  selectedColor:const Color(0xFFFFEB00) ,
+                                                  size: const Size(15,15),
+                                                ),
 
-                                           ],
-                                         ),
-                                       ],
-                                     ),
-                                      Visibility(
-                                        visible: isVisible,
-                                        child: IconButton(
-                                          icon: const Icon(Icons.delete_outline),
-                                          color: const Color(0xFF40BFFF),
-                                          iconSize: 21,
-                                          onPressed: () {
-                                            showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return AlertDialog(
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        Visibility(
+                                          visible: isVisible,
+                                          child: IconButton(
+                                            icon: const Icon(Icons.delete_outline),
+                                            color: const Color(0xFF40BFFF),
+                                            iconSize: 21,
+                                            onPressed: () {
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  return AlertDialog(
                                                     title: const Text('Notification'),
                                                     content: const Text('Do you want to remove review ?'),
                                                     actions: [
@@ -217,119 +218,153 @@ class ListReviewState extends State<ListReviewScreen> {
                                                         child: const Text('Yes'),
                                                       ),
                                                       TextButton(
-                                                          onPressed: () => Navigator.pop(context, true),
+                                                        onPressed: () => Navigator.pop(context, true),
                                                         child: const Text('No'),
                                                       ),
                                                     ],
 
-                                                );
-                                              },
-                                            );
+                                                  );
+                                                },
+                                              );
 
-                                          },
+                                            },
+                                          ),
                                         ),
-                                      ),
 
-                                    ],
-                                  ),
-
-                                  Container(
-                                    margin: const EdgeInsets.symmetric(
-                                        vertical: 8),
-                                  ),
-                                  Text(
-                                    " ${snapshot.data![index].contents.toString()}",
-                                    style: const TextStyle(
-                                      color: Color(0xFF9098B1),
-                                      fontSize: 14,
+                                      ],
                                     ),
-                                  ),
-                                  Container(
-                                    margin: const EdgeInsets.symmetric(
-                                        vertical: 5),
-                                  ),
-                                  Row(
-                                    children: [
-                                      Image.network(
-                                        snapshot.data![index].pictureReview.toString(),
-                                        width: 60.0,
-                                        height: 60.0,
-                                      ),
-                                      Container(
-                                        margin: const EdgeInsets.symmetric(
-                                            vertical: 2),
-                                      ),
-                                      Image.network(
-                                        snapshot.data![index].pictureReview.toString(),
-                                        width: 60.0,
-                                        height: 60.0,
-                                      ),
-
-                                    ],
-
-                                  ),
-                                  Container(
-                                    margin: const EdgeInsets.symmetric(
-                                        vertical: 8),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                    LikeButton(
-                                    size: 20,
-                                    circleColor: const CircleColor(start: Color(0xff00ddff), end: Color(0xff0099cc)),
-                                    bubblesColor: const BubblesColor(
-                                      dotPrimaryColor: Color(0xff33b5e5),
-                                      dotSecondaryColor: Color(0xff0099cc),
+                                    Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          vertical: 4),
                                     ),
-                                    likeBuilder: (bool liked) {
-                                      if (snapshot.data![index].idUser == id_){
-                                        liked= true;
-                                      }
-                                      return SvgPicture.network(
-                                        'https://www.svgrepo.com/show/512408/like-1386.svg',
-                                        color: liked ? Colors.blue : Colors.grey,
-                                        cacheColorFilter: true,
-                                        height: 20,
-                                        width: 20,
-                                      );
-                                    },
-                                    likeCount: snapshot.data![index].likeCount!+1,
-                                    // onTap: (bool isLiked) async {
-                                    //   if (isLiked == false) {
-                                    //     var responseOrderItem = await http.post(
-                                    //         Uri.parse(
-                                    //             'http://localhost:3000/api/like_status'),
-                                    //         body: json.encode({
-                                    //           'idReview': snapshot.data![index].id,
-                                    //           'statusLike': id_,
-                                    //         }),
-                                    //         headers: {
-                                    //           'Content-Type':
-                                    //               'application/json'
-                                    //         });
-                                    //    jsonDecode(responseOrderItem.body);
-                                    //
-                                    //   }
-                                    //   return null;
-                                    // },
-                                  ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          " ${snapshot.data![index].createdAts.toString().substring(0,10)}",
+                                          style: const TextStyle(
+                                            color: Color(0xFF9098B1),
+                                            fontSize: 13,
+                                          ),
+                                        ),
+                                        const Text(""),
+                                      ],
+                                    ),
 
+                                    Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          vertical: 8),
+                                    ),
                                     Text(
-                                      " ${snapshot.data![index].createdAts.toString().substring(0,10)}",
+                                      " ${snapshot.data![index].contents.toString()}",
                                       style: const TextStyle(
                                         color: Color(0xFF9098B1),
-                                        fontSize: 13,
+                                        fontSize: 14,
                                       ),
                                     ),
+                                    Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          vertical: 5),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Image.network(
+                                          snapshot.data![index].pictureReview.toString(),
+                                          width: 60.0,
+                                          height: 60.0,
+                                        ),
+                                        Container(
+                                          margin: const EdgeInsets.symmetric(
+                                              vertical: 2),
+                                        ),
+                                        Image.network(
+                                          snapshot.data![index].pictureReview.toString(),
+                                          width: 60.0,
+                                          height: 60.0,
+                                        ),
+                                      ],
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          vertical: 8),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        LikeButton(
+                                          size: 20,
+                                          circleColor: const CircleColor(start: Color(0xff00ddff), end: Color(0xff0099cc)),
+                                          bubblesColor: const BubblesColor(
+                                            dotPrimaryColor: Color(0xff33b5e5),
+                                            dotSecondaryColor: Color(0xff0099cc),
+                                          ),
+                                          likeBuilder: (bool liked) {
+                                            if (snapshot.data![index].idUser == id_){
+                                              liked= true;
+                                            }
+                                            return SvgPicture.network(
+                                              'https://www.svgrepo.com/show/512408/like-1386.svg',
+                                              color: liked ? Colors.blue : Colors.grey,
+                                              cacheColorFilter: true,
+                                              height: 20,
+                                              width: 20,
+                                            );
+                                          },
+                                          likeCount: snapshot.data![index].likeCount!+1,
+                                          // onTap: (bool isLiked) async {
+                                          //   if (isLiked == false) {
+                                          //     var responseOrderItem = await http.post(
+                                          //         Uri.parse(
+                                          //             'http://localhost:3000/api/like_status'),
+                                          //         body: json.encode({
+                                          //           'idReview': snapshot.data![index].id,
+                                          //           'statusLike': id_,
+                                          //         }),
+                                          //         headers: {
+                                          //           'Content-Type':
+                                          //               'application/json'
+                                          //         });
+                                          //    jsonDecode(responseOrderItem.body);
+                                          //
+                                          //   }
+                                          //   return null;
+                                          // },
+                                        ),
 
-                                  ],),
+                                        Row(
+                                          children: [
+                                           const Text(
+                                              "Reply",
+                                              style:  TextStyle(
+                                                color: Color(0xFF40BFFF),
+                                                fontSize: 13,
+                                              ),
+                                            ),
+                                            IconButton(
+                                              icon: const Icon(
+                                                Icons.navigate_next,
+                                                color: Color(0xFF40BFFF),
+                                              ),
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                       ListReplyScreen(review: snapshot.data![index],avatar: picturesReview[index],nameUser: nameuser[index],)),
+                                                );
+                                              },
+                                            ),
+                                        ],),
 
 
-                                ],
-                              ),
+                                      ],),
 
-                            );
+
+                                  ],
+                                ),
+
+                              );
+
                           },
                         ),
                       );
@@ -340,8 +375,6 @@ class ListReviewState extends State<ListReviewScreen> {
                   return const CircularProgressIndicator();
                 },
               ),
-
-
               Container(margin:const EdgeInsets.all(10),)
             ],
           ),
