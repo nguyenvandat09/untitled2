@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:untitled2/models/orders.dart';
 import 'package:untitled2/models/ordersItem.dart';
 import 'package:untitled2/models/signRes.dart';
+import 'package:intl/intl.dart';
 
 class ListItemOrdersScreen extends StatefulWidget {
   const ListItemOrdersScreen({super.key, required this.orders});
@@ -54,6 +55,7 @@ class ListItemOrdersState extends State<ListItemOrdersScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    var f = NumberFormat("#,##0", "en_US");
     return Scaffold(
       appBar: AppBar(
         backgroundColor:  Colors.white,
@@ -139,7 +141,7 @@ class ListItemOrdersState extends State<ListItemOrdersScreen> {
                                             height: 5,
                                           ),
                                           Text(
-                                            "\$${priceProduct[index].toString()}",
+                                            "\$${f.format(int.parse(priceProduct[index].toString()))}",
                                             textAlign: TextAlign.left,
                                             style: const TextStyle(
                                                 fontSize: 13,
@@ -305,7 +307,7 @@ class ListItemOrdersState extends State<ListItemOrdersScreen> {
                             ),
                           ),
                           Text(
-                            "\$${widget.orders.price}",
+                            "\$${f.format(widget.orders.price - (widget.orders.countItem*10))}",
                             style: const TextStyle(
                               color: Color(0xFF223263),
                               fontSize: 14,
@@ -317,11 +319,11 @@ class ListItemOrdersState extends State<ListItemOrdersScreen> {
                         margin: const EdgeInsets.symmetric(
                             vertical: 10),
                       ),
-                      const Row(
+                       Row(
                         mainAxisAlignment: MainAxisAlignment
                             .spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             "Shipping ",
                             style: TextStyle(
                               color: Color(0xFF9098B1),
@@ -329,8 +331,8 @@ class ListItemOrdersState extends State<ListItemOrdersScreen> {
                             ),
                           ),
                           Text(
-                            "\$40",
-                            style: TextStyle(
+                            "\$${widget.orders.countItem*10}",
+                            style: const TextStyle(
                               color: Color(0xFF223263),
                               fontSize: 14,
                             ),
@@ -353,7 +355,7 @@ class ListItemOrdersState extends State<ListItemOrdersScreen> {
                             ),
                           ),
                           Text(
-                          "\$${widget.orders.price+40}",
+                          "\$${f.format(widget.orders.price )}",
                             style: const TextStyle(
                               color: Color(0xFF40BFFF),
                               fontSize: 14,

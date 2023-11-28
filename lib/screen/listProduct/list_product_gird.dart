@@ -9,6 +9,7 @@ import '../../../constants.dart';
 import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class ListGirdProducts extends StatelessWidget {
 
@@ -34,8 +35,10 @@ class ListGirdProducts extends StatelessWidget {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
+    var f = NumberFormat("#,##0", "en_US");
     return  Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,10 +81,11 @@ class ListGirdProducts extends StatelessWidget {
                                 if (listLike[i].idUser == id_) {
 
                                   statuses = true;
-                                  print(statuses);
+
                                 }
                               }
                             }
+                            // ignore: use_build_context_synchronously
                             await Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -129,7 +133,7 @@ class ListGirdProducts extends StatelessWidget {
                                  ),
                                   const SizedBox(height: 6),
                                   Text(
-                                    "\$${snapshot.data![index].priceOld}",
+                                    "\$${f.format(snapshot.data![index].priceOld)}",
                                     style: const TextStyle(
                                       decoration: TextDecoration.lineThrough,
                                       textBaseline: TextBaseline.alphabetic,
@@ -142,7 +146,7 @@ class ListGirdProducts extends StatelessWidget {
                                     const EdgeInsets.symmetric(vertical: 2),
                                   ),
                                   Text(
-                                    "\$${snapshot.data![index].price}",
+                                    "\$${f.format(snapshot.data![index].price)}",
                                     style: const TextStyle(
                                       color: Color(0xFF40BFFF),
                                       fontSize: 15,

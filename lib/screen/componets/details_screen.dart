@@ -16,6 +16,7 @@ import 'package:untitled2/screen/list/list_review_screen.dart';
 import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class DetailsScreen extends StatefulWidget {
   const DetailsScreen({super.key, required this.product, required this.statusFavorite});
@@ -26,7 +27,7 @@ class DetailsScreen extends StatefulWidget {
 }
 int idProduct_=0;
 class _ProductGridItemState extends State<DetailsScreen> {
-
+  var f = NumberFormat("#,##0", "en_US");
   int reviewCount=0;
   double rattingAverage=0;
   Future fetchAlbum() async {
@@ -173,7 +174,7 @@ class _ProductGridItemState extends State<DetailsScreen> {
                     Container(
                       margin: const EdgeInsets.symmetric(vertical: 5),
                       child: Text(
-                        "\$${widget.product.price}",
+                        "\$${f.format(widget.product.price)}",
                         style: GoogleFonts.inter(
                           fontSize: 23.0,
                           color: const Color(0xFF40BFFF),

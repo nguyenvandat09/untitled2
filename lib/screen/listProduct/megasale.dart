@@ -10,6 +10,7 @@ import 'package:untitled2/screen/componets/details_screen.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
+import 'package:intl/intl.dart';
 
 class MegaProducts extends StatelessWidget {
   const MegaProducts({
@@ -41,6 +42,7 @@ class MegaProducts extends StatelessWidget {
   }
   @override
   Widget build(BuildContext context) {
+    var f = NumberFormat("#,##0", "en_US");
     return Column(
       children:[
         Padding(
@@ -135,7 +137,7 @@ class MegaProducts extends StatelessWidget {
                               ),
 
                               Text(
-                                "\$${snapshot.data![index].price}",
+                                "\$${f.format(snapshot.data![index].price)}",
                                 style: const TextStyle(
 
                                   color: Color(0xFF40BFFF),

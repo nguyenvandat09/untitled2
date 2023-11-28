@@ -9,7 +9,9 @@ import 'package:untitled2/screen/listProduct/megasale.dart';
 import '../category.dart';
 import 'package:untitled2/screen/clock/Clock.dart';
 import 'package:untitled2/screen/notification_screen.dart';
-
+//import 'package:carousel_indicator/carousel_indicator.dart';
+//1,818,122,449
+//1,820,041,216 bytes
 const OutlineInputBorder outlineInputBorder = OutlineInputBorder(
   borderRadius: BorderRadius.all(Radius.circular(12)),
   borderSide: BorderSide.none,
@@ -20,10 +22,7 @@ class HomeMain extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
-
       body:  SingleChildScrollView(
-        physics: const BouncingScrollPhysics(
-            parent: AlwaysScrollableScrollPhysics()),
         child: Container(
           color: Colors.white,
           margin: const EdgeInsets.fromLTRB(0, 30, 0, 0),
@@ -115,6 +114,7 @@ class HomeMain extends StatelessWidget {
 
               ),
               //margin: const EdgeInsets.fromLTRB(0, 5, 0, 13),
+
               Stack(
                 children: <Widget>[
                   Container(

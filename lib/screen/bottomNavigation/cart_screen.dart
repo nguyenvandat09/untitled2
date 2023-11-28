@@ -11,6 +11,7 @@ import 'package:untitled2/screen/success_screen.dart';
 import 'bottom_navigation_bar.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class CartScreen extends StatefulWidget {
   @override
@@ -18,6 +19,9 @@ class CartScreen extends StatefulWidget {
   const CartScreen({Key? key}) : super(key: key);
 }
 class _CardItemState extends State<CartScreen> {
+
+  var f = NumberFormat("#,##0", "en_US");
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -186,8 +190,13 @@ class _CardItemState extends State<CartScreen> {
                     ),
                     Expanded(child: Container()),
                     Text(
-                      '\$${cartProvider.totalPrice+cartProvider.cartItems.length*10}',
-                      style: Theme.of(context).textTheme.titleLarge,
+                      '\$${f.format(cartProvider.totalPrice+cartProvider.cartItems.length*10)}',
+                      style:  GoogleFonts.inter(
+                        fontSize: 16.0,
+                        color: const Color(0xFF40BFFF),
+                        fontWeight: FontWeight.w500,
+                        height: 1.5,
+                      ),
                     ),
                   ],
                 ),
@@ -247,7 +256,7 @@ class _CardItemState extends State<CartScreen> {
                                 'status': "Shipping",
                                 'price': cartProvider.totalPrice,
                                 'createAt': timenow.toString(),
-                                'countItem': cartItems2.length
+                                'countItem': cartItems2.length.toString()
                               }),
                               headers: {'Content-Type': 'application/json'});
                           var signInRes =
@@ -267,6 +276,9 @@ class _CardItemState extends State<CartScreen> {
                                 headers: {'Content-Type': 'application/json'});
                             jsonDecode(responseOrderItem.body);
                           }
+                          // ignore: use_build_context_synchronously
+                          Provider.of<CartProvider>(context, listen: false)
+                              .clearCart();
                           // ignore: use_build_context_synchronously
                           Navigator.push(
                             context,

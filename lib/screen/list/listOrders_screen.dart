@@ -7,6 +7,7 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:untitled2/screen/list/list_item_order_screen.dart';
 import '../../models/base_response.dart';
+import 'package:intl/intl.dart';
 
 class ListOrders extends StatelessWidget {
   const ListOrders({Key? key,}) : super(key: key);
@@ -26,6 +27,7 @@ class ListOrders extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var f = NumberFormat("#,##0", "en_US");
     return Scaffold(
       appBar: AppBar(
         shadowColor: const Color(0xFFFFFFFF),
@@ -194,7 +196,7 @@ class ListOrders extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    "\$${snapshot.data![index].countItem}",
+                                    "${snapshot.data![index].countItem}",
                                     style: const TextStyle(
                                       color: Color(0xFF223263),
                                       fontSize: 14,
@@ -218,7 +220,7 @@ class ListOrders extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    "\$${snapshot.data![index].price}",
+                                    "\$${f.format(snapshot.data![index].price)}",
                                     style: const TextStyle(
                                       color: Color(0xFF40BFFF),
                                       fontSize: 14,

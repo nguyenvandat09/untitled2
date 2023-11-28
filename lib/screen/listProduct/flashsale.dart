@@ -9,6 +9,7 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:untitled2/models/section_title.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class FlashSaleProducts extends StatelessWidget {
 
@@ -36,6 +37,7 @@ class FlashSaleProducts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var f = NumberFormat("#,##0", "en_US");
     return  Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,10 +81,11 @@ class FlashSaleProducts extends StatelessWidget {
                                   if (listLike[i].idUser == id_) {
 
                                       statuses = true;
-                                      print(statuses);
+
                                   }
                                 }
                               }
+                              // ignore: use_build_context_synchronously
                               await Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -126,7 +129,7 @@ class FlashSaleProducts extends StatelessWidget {
                                     margin: const EdgeInsets.symmetric(vertical: 2 ),
                                   ),
                                   Text(
-                                    "\$${snapshot.data![index].priceOld}",
+                                    "\$${f.format(snapshot.data![index].priceOld)}",
                                     style: const TextStyle(
                                       decoration: TextDecoration.lineThrough,
                                       textBaseline: TextBaseline.alphabetic,
@@ -139,7 +142,7 @@ class FlashSaleProducts extends StatelessWidget {
 
                                   ),
                                   Text(
-                                    "\$${snapshot.data![index].price}",
+                                    "\$${f.format(snapshot.data![index].price)}",
                                     style: Theme.of(context).textTheme.subtitle1!.copyWith(
                                       color: const Color(0xFF40BFFF),
                                       fontWeight: FontWeight.bold,
