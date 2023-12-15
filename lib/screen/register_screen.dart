@@ -14,10 +14,18 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      appBar: AppBar(
+        backgroundColor:  Colors.white,
+        leading: const BackButton(color: Color(0xFF40BFFF)),
+        title: const Text(
+          "Register",
+          style: TextStyle(
+            color: Color(0xFF223263),
+            fontSize: 20,
+          ),
+        ),
+      ),
       body:  SingleChildScrollView(
-        physics: const BouncingScrollPhysics(
-            parent: AlwaysScrollableScrollPhysics()),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
