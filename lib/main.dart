@@ -16,6 +16,7 @@ import 'package:untitled2/screen/bottomNavigation/bottom_navigation_bar.dart';
 import 'package:untitled2/screen/register_screen.dart';
 
 //flutter run -d chrome --web-browser-flag "--disable-web-security"
+// test git branch
 void main() {
   runApp(const MainApp());
 }

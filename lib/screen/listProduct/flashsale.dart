@@ -107,7 +107,7 @@ class FlashSaleProducts extends StatelessWidget {
                                 ),
                               ),
                               child: Column(
-                                mainAxisSize: MainAxisSize.min,
+                                mainAxisSize: MainAxisSize.min,                                
                                 children: [
                                   Container(
                                     alignment: Alignment.center,
@@ -116,13 +116,13 @@ class FlashSaleProducts extends StatelessWidget {
                                       height: 132,
                                     ),
                                   ),
-                                  const SizedBox(height: defaultPadding / 2),
+                                  const SizedBox(height: 5),
                                   Text(
                                     snapshot.data![index].name.toString(),
                                     style: Theme.of(context).textTheme.subtitle1!.copyWith(
                                       color: const Color(0xFF223263),
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 15,
+                                      fontSize: 14,
                                     ),
                                   ),
                                   Container(
@@ -146,7 +146,7 @@ class FlashSaleProducts extends StatelessWidget {
                                     style: Theme.of(context).textTheme.subtitle1!.copyWith(
                                       color: const Color(0xFF40BFFF),
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 13,
+                                      fontSize: 12,
                                     ),
                                   )
                                 ],

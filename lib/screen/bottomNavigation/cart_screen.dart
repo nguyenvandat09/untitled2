@@ -201,7 +201,7 @@ class _CardItemState extends State<CartScreen> {
                   ],
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 8,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -217,8 +217,8 @@ class _CardItemState extends State<CartScreen> {
                         alignment: Alignment.center,
                         height: 50,
                         margin: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 10),
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                            horizontal: 10, vertical: 10),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5.0),
                           color: const Color(0xFF40BFFF),
@@ -291,8 +291,8 @@ class _CardItemState extends State<CartScreen> {
                         alignment: Alignment.center,
                         height: 50,
                         margin: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 10),
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                            horizontal: 10, vertical: 10),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5.0),
                           color: const Color(0xFF40BFFF),
